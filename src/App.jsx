@@ -5,7 +5,8 @@ import './App.css';
 import { 
   FaWifi, FaCar, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
   FaUsers, FaWhatsapp, FaLocationDot, 
-  FaAirbnb, FaCalendarCheck, FaGamepad, FaShieldHalved, FaInstagram, FaBars, FaTimes
+  FaAirbnb, FaCalendarCheck, FaGamepad, FaShieldHalved, FaInstagram, FaBars, FaXmark,
+  FaLandmark, FaPersonRunning, FaUmbrellaBeach
 } from 'react-icons/fa6';
 import { MdOutdoorGrill, MdOutlineLiquor, MdLocalGroceryStore, MdRestaurant } from 'react-icons/md';
 
@@ -24,7 +25,7 @@ const FadeInSection = ({ children }) => {
   return <div className="fade-in-section" ref={domRef}>{children}</div>;
 };
 
-// Componente Navbar para navegação
+// Componente Navbar
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -47,7 +48,7 @@ const Navbar = () => {
           <a href="#contato" onClick={() => setMenuOpen(false)} className="nav-cta">Reservar</a>
         </div>
         <div className="mobile-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <FaTimes /> : <FaBars />}
+          {menuOpen ? <FaXmark /> : <FaBars />}
         </div>
       </div>
     </nav>
@@ -65,11 +66,11 @@ function App() {
     { src: "/img/Piscina.png", alt: "Área de Lazer Completa com espreguiçadeiras" },
     { src: "/img/Cozinha%20Sinuca.png", alt: "Integração Gourmet e Lazer" },
     { src: "/img/Churrasqueira.png", alt: "Área de Churrasco Completa" },
-    { src: "/img/fachada.png", alt: "Fachada Moderna Gabana's House" },
+    { src: "/img/fachada.png", alt: "Fachada da Casa de Temporada" },
     { src: "/img/Sala.png", alt: "Sala de TV Confortável" },
     { src: "/img/Cozinha%20Completa.png", alt: "Cozinha Equipada" },
     { src: "/img/Suite.png", alt: "Suíte Master" },
-    { src: "/img/Visão%20escada.png", alt: "Design de Interiores" },
+    { src: "/img/Visão%20escada.png", alt: "Ambiente Aconchegante" },
   ];
 
   const ActionButtons = () => (
@@ -106,7 +107,7 @@ function App() {
           <div className="badge">⭐ Superhost Caldas Novas</div>
           <h1>Gabana's House</h1>
           <p className="hero-subtitle">Conforto, privacidade e a localização mais cobiçada da cidade.</p>
-          <p className="hero-description">Transforme sua viagem em uma experiência inesquecível na melhor casa de temporada da região.</p>
+          <p className="hero-description">Transforme sua viagem em memórias incríveis na casa de temporada mais aconchegante da região.</p>
           <ActionButtons />
         </div>
         <div className="scroll-indicator">
@@ -119,40 +120,44 @@ function App() {
       <section id="localizacao" className="container-pad">
         <FadeInSection>
           <div className="section-header">
-            <span className="section-tag">Localização Estratégica</span>
-            <h2>No Coração de Caldas Novas</h2>
-            <p>Esqueça o carro. Você está a passos de tudo o que precisa.</p>
+            <span className="section-tag">Localização Privilegiada</span>
+            <h2>História e Lazer ao seu redor</h2>
+            <p>A tranquilidade que sua família precisa, perto de tudo o que vocês merecem.</p>
           </div>
 
           <div className="location-wrapper">
             {/* Grid de Cards de Proximidade */}
             <div className="proximity-grid">
+              
               <div className="proximity-card">
-                <div className="icon-box"><FaLocationDot /></div>
+                <div className="icon-box"><FaLandmark /></div>
                 <div>
-                  <h4>150m do Casarão</h4>
-                  <p>O ponto turístico mais importante da cidade.</p>
+                  <h4>Vizinho ao Casarão</h4>
+                  <p>Ao lado do <strong>Casarão dos Gonzaga</strong>. Sede da fazenda do 1º prefeito, é uma joia colonial do séc. XIX e ícone histórico.</p>
                 </div>
               </div>
+
+              <div className="proximity-card">
+                <div className="icon-box"><FaUmbrellaBeach /></div>
+                <div>
+                  <h4>300m do Clube Tropical</h4>
+                  <p>Acesso rápido ao <strong>Tropical Thermas Clube II</strong>. Diversão garantida a poucos passos de casa.</p>
+                </div>
+              </div>
+
+              <div className="proximity-card">
+                <div className="icon-box"><FaPersonRunning /></div>
+                <div>
+                  <h4>Vida Saudável</h4>
+                  <p>Pratique exercícios na <strong>Pista de Cooper</strong> e visite a famosa <strong>Rua da Feira</strong> para compras locais.</p>
+                </div>
+              </div>
+
               <div className="proximity-card">
                 <div className="icon-box"><MdLocalGroceryStore /></div>
                 <div>
-                  <h4>Supermercados</h4>
-                  <p>Abasteça a casa com facilidade.</p>
-                </div>
-              </div>
-              <div className="proximity-card">
-                <div className="icon-box"><MdRestaurant /></div>
-                <div>
-                  <h4>Gastronomia</h4>
-                  <p>Pizzarias e Hamburguerias ao lado.</p>
-                </div>
-              </div>
-              <div className="proximity-card">
-                <div className="icon-box"><MdOutlineLiquor /></div>
-                <div>
-                  <h4>Conveniência</h4>
-                  <p>Distribuidoras e Feira local.</p>
+                  <h4>Facilidades</h4>
+                  <p>Região servida por supermercados, padarias e ótimas opções gastronômicas.</p>
                 </div>
               </div>
             </div>
@@ -160,12 +165,12 @@ function App() {
             <div className="map-container">
                <iframe 
                 className="map-embed"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3810.0767597193353!2d-48.6274666!3d-17.743056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDQ0JzM1LjAiUyA0OMKwMzcnMzAuOSJX!5e0!3m2!1spt-BR!2sbr!4v1629898989898!5m2!1spt-BR!2sbr" 
+                src="https://maps.google.com/maps?q=Rua+7+-+Av.+A,+Itaguaí+I,+Caldas+Novas+-+GO&t=&z=16&ie=UTF8&iwloc=&output=embed" 
                 loading="lazy"
                 title="Mapa Caldas Novas"
               ></iframe>
               <div className="map-overlay-info">
-                <FaLocationDot /> Localização Exata enviada após a reserva
+                <FaLocationDot /> Rua 7 - Av. A, Qd. 04 Lt. 27 - Itaguai 1
               </div>
             </div>
           </div>
@@ -176,51 +181,51 @@ function App() {
       <section id="estrutura" className="container-pad dark-bg">
         <FadeInSection>
           <div className="section-header">
-            <span className="section-tag">Comodidades</span>
+            <span className="section-tag">Nossa Casa</span>
             <h2>Estrutura Completa</h2>
-            <p>Pensada nos mínimos detalhes para o seu conforto absoluto.</p>
+            <p>Cada detalhe foi preparado para você se sentir em casa.</p>
           </div>
           
           <div className="amenities-grid">
             <div className="amenity-card">
               <FaPersonSwimming />
               <h3>Piscina Aquecida</h3>
-              <p>Com iluminação LED e hidromassagem.</p>
+              <p>Com iluminação LED e hidromassagem para relaxar.</p>
             </div>
             <div className="amenity-card">
               <MdOutdoorGrill />
-              <h3>Cozinha Completa</h3>
-              <p>Churrasqueira completa integrada.</p>
+              <h3>Área Gourmet</h3>
+              <p>Churrasqueira completa para o almoço em família.</p>
             </div>
             <div className="amenity-card">
               <FaGamepad />
-              <h3>Lazer</h3>
-              <p>Mesa de bilhar.</p>
+              <h3>Diversão</h3>
+              <p>Mesa de bilhar para os momentos de lazer.</p>
             </div>
             <div className="amenity-card">
               <FaSnowflake />
               <h3>Climatização</h3>
-              <p>Ar condicionado nos quartos.</p>
+              <p>Ar condicionado para noites tranquilas.</p>
             </div>
             <div className="amenity-card">
               <FaWifi />
-              <h3>Conectividade</h3>
-              <p>Wi-Fi Fibra de alta velocidade.</p>
+              <h3>Wi-Fi</h3>
+              <p>Internet Fibra rápida e estável.</p>
             </div>
             <div className="amenity-card">
               <FaShieldHalved />
               <h3>Segurança</h3>
-              <p>bairro tranquilo.</p>
+              <p>Bairro tranquilo e monitorado.</p>
             </div>
             <div className="amenity-card">
               <FaKitchenSet />
               <h3>Cozinha</h3>
-              <p>Totalmente equipada com utensílios.</p>
+              <p>Equipada com tudo que você precisa.</p>
             </div>
              <div className="amenity-card">
               <FaCar />
               <h3>Garagem</h3>
-              <p>Espaço coberto e seguro.</p>
+              <p>Espaço coberto para seu veículo.</p>
             </div>
           </div>
         </FadeInSection>
@@ -230,22 +235,22 @@ function App() {
       <section id="galeria" className="container-pad">
         <FadeInSection>
           <div className="section-header">
-            <span className="section-tag">Visual</span>
-            <h2>Conheça cada detalhe</h2>
+            <span className="section-tag">Fotos</span>
+            <h2>Conheça nosso cantinho</h2>
           </div>
           <div className="gallery-grid">
             {galleryImages.map((img, index) => (
               <div className="gallery-item" key={index}>
                 <img src={img.src} alt={img.alt} loading="lazy" />
                 <div className="gallery-overlay">
-                  <span>Gabana's House</span>
+                  <span>Ver Foto</span>
                 </div>
               </div>
             ))}
           </div>
           <div style={{textAlign: 'center', marginTop: '40px'}}>
              <a href={linkInstagram} target="_blank" rel="noreferrer" className="insta-feed-link">
-               <FaInstagram /> Veja mais vídeos no Instagram
+               <FaInstagram /> Acompanhe no Instagram
              </a>
           </div>
         </FadeInSection>
@@ -256,18 +261,18 @@ function App() {
         <div className="footer-content">
           <div className="footer-brand">
             <h2>Gabana's House</h2>
-            <p>Sua casa longe de casa em Caldas Novas.</p>
+            <p>Sua casa de temporada em Caldas Novas.</p>
           </div>
           <div className="footer-actions">
-            <h3>Garanta sua data</h3>
-            <p className="price">Consulte condições especiais para baixa temporada</p>
+            <h3>Vamos agendar sua data?</h3>
+            <p className="price">Fale conosco e consulte condições especiais</p>
             <ActionButtons />
           </div>
         </div>
         
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} Gabana's House • Todos os direitos reservados.</p>
-          <p className="dev-credit">Design Premium por <span className="gold-text">Optima Sistemas</span></p>
+          <p className="dev-credit">Desenvolvido por <span className="gold-text">Optima Sistemas</span></p>
         </div>
       </footer>
     </div>

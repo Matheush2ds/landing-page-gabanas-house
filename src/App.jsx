@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
+// ÍCONES SEGUROS (FontAwesome 6)
 import { 
   FaWifi, FaCar, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
   FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, 
@@ -28,7 +29,6 @@ function App() {
   const linkAirbnb = "https://www.airbnb.com.br/rooms/952305594473672721?adults=10";
   const linkBooking = "https://www.booking.com/hotel/br/casa-de-aluguel-para-temporada-caldas-novas.pt-br.html";
 
-  // Ordem estratégica das fotos para vender
   const galleryImages = [
     { src: "/img/Piscina1.png", alt: "Piscina Principal Iluminada" },
     { src: "/img/Piscina.png", alt: "Área de Lazer Completa" },
@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="App">
       
-      {/* Botão Flutuante (Fixo) */}
+      {/* Botão Flutuante */}
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="floating-whatsapp" aria-label="Falar no WhatsApp">
         <FaWhatsapp />
       </a>
@@ -77,7 +77,7 @@ function App() {
         <div className="hero-content fade-in-section is-visible">
           <div className="badge">⭐ Superhost Caldas Novas</div>
           <h1>Gabana's House</h1>
-          <p>A experiência que sua família merece. Segurança, lazer privativo e a melhor localização da cidade.</p>
+          <p>A experiência premium que sua família merece. Segurança, lazer privativo e a melhor localização da cidade.</p>
           <ActionButtons />
         </div>
       </header>
@@ -96,7 +96,7 @@ function App() {
                 <div className="feature-icon"><FaLocationDot /></div>
                 <div className="feature-content">
                   <strong>150m do Casarão</strong>
-                  <p>Vizinho ao principal ponto turístico da cidade.</p>
+                  <p>Vizinho ao ponto turístico mais charmoso da cidade.</p>
                 </div>
               </div>
               <div className="feature-item">
@@ -120,7 +120,6 @@ function App() {
             </div>
           </div>
 
-          {/* MAPA CORRIGIDO (Embed Genérico que funciona sem API Key) */}
           <iframe 
             className="map-embed"
             src="https://maps.google.com/maps?q=Casar%C3%A3o%20dos%20Gonzaga%2C%20Caldas%20Novas&t=&z=16&ie=UTF8&iwloc=&output=embed"
@@ -132,7 +131,7 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* AMENITIES (ATUALIZADO: Bilhar, Garagem Coberta, Segurança) */}
+      {/* AMENITIES */}
       <section className="container-pad" style={{ background: '#0A0A0A' }}>
         <FadeInSection>
           <div className="section-header">
@@ -150,7 +149,7 @@ function App() {
               <div className="amenity-title">Churrasqueira</div>
             </div>
             <div className="amenity-card">
-              <FaGamepad /> {/* Ícone para Jogos/Bilhar */}
+              <FaGamepad />
               <div className="amenity-title">Mesa de Bilhar</div>
             </div>
             <div className="amenity-card">
@@ -158,7 +157,7 @@ function App() {
               <div className="amenity-title">Garagem Coberta</div>
             </div>
             <div className="amenity-card">
-              <FaShieldHalved /> {/* Ícone de Segurança */}
+              <FaShieldHalved />
               <div className="amenity-title">Segurança Total</div>
             </div>
             <div className="amenity-card">
@@ -199,7 +198,6 @@ function App() {
           <div className="section-header">
             <h2>O que dizem nossos hóspedes</h2>
           </div>
-          {/* Widget Elfsight */}
           <div className="elfsight-app-51eecd09-3bb0-463a-a1d0-9f6af0a06a84" data-elfsight-app-lazy></div>
         </FadeInSection>
       </section>
@@ -209,9 +207,15 @@ function App() {
         <h2>Garanta sua data em Caldas Novas</h2>
         <p className="footer-price">Diárias a partir de R$ 500,00 (Baixa Temporada)</p>
         <ActionButtons />
-        <p style={{ marginTop: '40px', opacity: 0.5, fontSize: '0.8rem' }}>
-          Gabana's House © 2024 • Caldas Novas, GO
-        </p>
+        
+        <div style={{ marginTop: '50px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
+          <p style={{ opacity: 0.6, fontSize: '0.85rem', marginBottom: '5px' }}>
+            Gabana's House © {new Date().getFullYear()} • Caldas Novas, GO
+          </p>
+          <p style={{ fontSize: '0.8rem', color: '#666' }}>
+            Desenvolvido por <strong style={{ color: 'var(--gold)' }}>Optima Sistemas e Soluções</strong>
+          </p>
+        </div>
       </footer>
     </div>
   );

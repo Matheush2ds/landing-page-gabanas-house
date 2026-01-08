@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
-// Ícones
+// --- CORREÇÃO AQUI: Troquei FaMapMarkerAlt por FaLocationDot e removi o erro de digitação ---
 import { 
   FaWifi, FaCar, FaTv, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
-  FaDog, FaUsers, FaWhatsapp, FaStar, FaMapMarkerAlt, FaGlassCheers, FaUmZB 
+  FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaGlassCheers 
 } from 'react-icons/fa6';
 import { BiFridge } from 'react-icons/bi';
 import { MdMicrowave, MdOutdoorGrill } from 'react-icons/md';
@@ -29,7 +29,6 @@ function App() {
   const linkAirbnb = "https://www.airbnb.com.br/rooms/952305594473672721?adults=10";
   const linkBooking = "https://www.booking.com/hotel/br/casa-de-aluguel-para-temporada-caldas-novas.pt-br.html";
 
-  // Lista completa das suas fotos
   const galleryImages = [
     { src: "/img/Piscina1.png", alt: "Piscina Principal" },
     { src: "/img/Piscina.png", alt: "Área de Lazer" },
@@ -92,7 +91,8 @@ function App() {
             <div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <li style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                  <FaMapMarkerAlt style={{ color: 'var(--gold)', fontSize: '1.5rem' }} />
+                  {/* Ícone corrigido aqui */}
+                  <FaLocationDot style={{ color: 'var(--gold)', fontSize: '1.5rem' }} />
                   <div>
                     <strong>150m do Casarão</strong>
                     <div style={{ fontSize: '0.9rem', color: '#888' }}>Ponto turístico histórico da cidade.</div>
@@ -118,9 +118,8 @@ function App() {
             </div>
             
             <div className="map-container">
-              {/* Mapa centralizado próximo ao Casarão dos Gonzaga (ponto de referência citado) */}
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3810.748643867623!2d-48.62788592404764!3d-17.73801208757279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef7d2260655d5%3A0x6a1f87494f475659!2sCasar%C3%A3o%20dos%20Gonzaga!5e0!3m2!1spt-BR!2sbr!4v1709664000000!5m2!1spt-BR!2sbr" 
+                src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/@-17.7470599,-48.6229068,16z/data=!4m6!3m5!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7?entry=ttu&g_ep=EgoyMDI2MDEwNC4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D" 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Mapa Caldas Novas"
@@ -147,7 +146,7 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* 4. GALERIA DE FOTOS (TODAS AS FOTOS) */}
+      {/* 4. GALERIA DE FOTOS */}
       <section className="container-pad">
         <FadeInSection>
           <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria Premium</h2>
@@ -211,7 +210,7 @@ function App() {
           <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-gold">Booking</a>
         </div>
         <p style={{ marginTop: '30px', color: '#666', fontSize: '0.8rem' }}>
-          Gabana's House &copy; 2024 • Caldas Novas, GO
+          Gabana's House © 2024 • Caldas Novas, GO
         </p>
       </footer>
     </div>

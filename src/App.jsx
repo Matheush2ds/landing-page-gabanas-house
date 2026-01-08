@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
-// --- CORREÇÃO AQUI: Troquei FaMapMarkerAlt por FaLocationDot e removi o erro de digitação ---
+// Ícones (Configuração segura para não quebrar o build)
 import { 
   FaWifi, FaCar, FaTv, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
-  FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaGlassCheers 
+  FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaUmbrellaBeach 
 } from 'react-icons/fa6';
 import { BiFridge } from 'react-icons/bi';
 import { MdMicrowave, MdOutdoorGrill } from 'react-icons/md';
@@ -53,12 +53,11 @@ function App() {
   return (
     <div className="App">
       
-      {/* BOTÃO WHATSAPP FLUTUANTE */}
+      {/* Botão Flutuante */}
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="floating-whatsapp">
         <FaWhatsapp />
       </a>
 
-      {/* 1. HERO - IMPACTO */}
       <header className="hero" style={{ backgroundImage: "url('/img/Piscina1.png')" }}>
         <div className="overlay"></div>
         <div className="hero-content fade-in-section is-visible">
@@ -77,7 +76,6 @@ function App() {
         </div>
       </header>
 
-      {/* 2. LOCALIZAÇÃO DETALHADA */}
       <section className="container-pad">
         <FadeInSection>
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -91,7 +89,6 @@ function App() {
             <div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <li style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                  {/* Ícone corrigido aqui */}
                   <FaLocationDot style={{ color: 'var(--gold)', fontSize: '1.5rem' }} />
                   <div>
                     <strong>150m do Casarão</strong>
@@ -129,14 +126,13 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* 3. COMODIDADES */}
       <section className="container-pad" style={{ background: '#111' }}>
         <FadeInSection>
           <h2 style={{ textAlign: 'center' }}>Tudo para sua estadia</h2>
           <div className="amenities-grid">
             <div className="amenity-card"><div className="amenity-icon"><FaPersonSwimming /></div><div className="amenity-title">Piscina</div></div>
             <div className="amenity-card"><div className="amenity-icon"><MdOutdoorGrill /></div><div className="amenity-title">Churrasqueira</div></div>
-            <div className="amenity-card"><div className="amenity-icon"><FaGlassCheers /></div><div className="amenity-title">Bar Molhado</div></div>
+            <div className="amenity-card"><div className="amenity-icon"><FaUmbrellaBeach /></div><div className="amenity-title">Bar Molhado</div></div>
             <div className="amenity-card"><div className="amenity-icon"><FaWifi /></div><div className="amenity-title">Wi-Fi Grátis</div></div>
             <div className="amenity-card"><div className="amenity-icon"><FaCar /></div><div className="amenity-title">Garagem (4 carros)</div></div>
             <div className="amenity-card"><div className="amenity-icon"><FaSnowflake /></div><div className="amenity-title">Ar Condicionado</div></div>
@@ -146,7 +142,6 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* 4. GALERIA DE FOTOS */}
       <section className="container-pad">
         <FadeInSection>
           <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria Premium</h2>
@@ -160,47 +155,17 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* 5. AVALIAÇÕES (GOOGLE MOCK) */}
+      {/* --- AVALIAÇÕES REAIS DO GOOGLE (ELFSIGHT) --- */}
       <section className="container-pad" style={{ background: '#111' }}>
         <FadeInSection>
-          <h2 style={{ textAlign: 'center' }}>O que dizem nossos hóspedes</h2>
-          <div style={{ textAlign: 'center', color: '#ffb400', fontSize: '1.5rem', margin: '10px 0' }}>
-            <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
-          </div>
-          <p style={{ textAlign: 'center', color: '#888' }}>Avaliações verificadas</p>
-
-          <div className="reviews-grid">
-            <div className="review-card">
-              <div className="stars">★★★★★</div>
-              <p className="review-text">"A casa é espetacular! Exatamente como nas fotos. A área da piscina e churrasqueira é perfeita para família. Perto de tudo, nem precisamos usar muito o carro."</p>
-              <div className="review-author">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" className="google-icon" alt="G" />
-                Ricardo Silva
-              </div>
-            </div>
-
-            <div className="review-card">
-              <div className="stars">★★★★★</div>
-              <p className="review-text">"Localização top! Fica do lado do mercado Reis, o que facilitou muito. Casa limpa, organizada e muito ampla. Voltaremos com certeza."</p>
-              <div className="review-author">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" className="google-icon" alt="G" />
-                Fernanda Oliveira
-              </div>
-            </div>
-
-            <div className="review-card">
-              <div className="stars">★★★★★</div>
-              <p className="review-text">"Mais de 2 anos que frequento Caldas e essa foi a melhor casa. O atendimento pelo WhatsApp foi super rápido. Recomendo de olhos fechados."</p>
-              <div className="review-author">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" className="google-icon" alt="G" />
-                Marcos Paulo
-              </div>
-            </div>
-          </div>
+          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>O que dizem nossos hóspedes</h2>
+          
+          {/* Widget Elfsight integrado */}
+          <div className="elfsight-app-51eecd09-3bb0-463a-a1d0-9f6af0a06a84" data-elfsight-app-lazy></div>
+          
         </FadeInSection>
       </section>
 
-      {/* 6. RODAPÉ */}
       <footer style={{ padding: '60px 20px', textAlign: 'center', borderTop: '1px solid #222' }}>
         <h2 style={{ fontSize: '2rem', marginBottom: '20px' }}>Sua estadia em Caldas Novas</h2>
         <p style={{marginBottom: '30px', color: '#aaa'}}>Reservas a partir de R$ 500,00 (Baixa Temporada)</p>

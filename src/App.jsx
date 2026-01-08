@@ -163,10 +163,10 @@ function App() {
             </div>
 
             <div className="map-container">
-               {/* Mapa Colorido (filtro removido no CSS) com link atualizado */}
+               {/* CORREÇÃO DO LINK DO MAPA AQUI */}
                <iframe 
                 className="map-embed"
-                src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/@-17.7469558,-48.6237835,292m/data=!3m1!1e3!4m14!1m7!3m6!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!2sGabanas+House+Casa+para+Temporada!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7!3m5!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7?entry=ttu&g_ep=EgoyMDI2MDEwNi4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D" 
+                src="https://maps.google.com/maps?q=Rua+7+Av+A+Itaguai+1+Caldas+Novas&t=&z=16&ie=UTF8&iwloc=&output=embed" 
                 loading="lazy"
                 title="Mapa Caldas Novas"
               ></iframe>

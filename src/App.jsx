@@ -5,11 +5,12 @@ import './App.css';
 import { 
   FaWifi, FaCar, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
   FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaUmbrellaBeach,
-  FaAirbnb // Importando ícone do Airbnb
+  FaAirbnb 
 } from 'react-icons/fa6';
 import { MdOutdoorGrill } from 'react-icons/md';
-// Importando ícone do Booking (do pacote simple icons 'si')
-import { SiBooking } from 'react-icons/si';
+
+// --- CORREÇÃO AQUI: O nome correto é SiBookingdotcom ---
+import { SiBookingdotcom } from 'react-icons/si';
 
 // Componente de Animação
 const FadeInSection = ({ children }) => {
@@ -53,7 +54,7 @@ function App() {
     { src: "/img/Banheiro1.png", alt: "Banheiro Social" },
   ];
 
-  // Componente para os botões de ação (reutilizável)
+  // Componente para os botões de ação
   const ActionButtons = () => (
     <>
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="btn-big btn-whatsapp-hero">
@@ -64,7 +65,8 @@ function App() {
           <FaAirbnb /> Airbnb
         </a>
         <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-big btn-booking">
-          <SiBooking /> Booking
+          {/* Ícone corrigido aqui */}
+          <SiBookingdotcom /> Booking
         </a>
       </div>
     </>
@@ -99,7 +101,6 @@ function App() {
             </p>
           </div>
 
-          {/* Seção Dividida: Texto + Foto da Fachada */}
           <div className="split-section">
             <div>
               <ul className="location-list">
@@ -122,20 +123,18 @@ function App() {
                   <div>
                     <strong>Vizinhança Completa</strong>
                     <div style={{ color: '#888' }}>
-                      Ao lado do <strong>Supermercado Reis</strong>, Rua da Feira, Pista de Cooper, Hamburgueria, Sorveterias e Posto de combustivel.
+                      Ao lado do <strong>Supermercado Reis</strong>, Rua da Feira, Pista de Cooper e sorveterias.
                     </div>
                   </div>
                 </li>
               </ul>
             </div>
             
-            {/* FOTO DA FACHADA AQUI PARA CORRIGIR O ERRO */}
             <div>
                 <img src="/img/fachada.png" alt="Fachada da Gabana's House" className="location-foto" loading="lazy"/>
             </div>
           </div>
 
-          {/* Mapa logo abaixo */}
           <div className="map-container">
             <iframe 
               src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/@-17.7470599,-48.6229068,16z/data=!4m6!3m5!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7?entry=ttu&g_ep=EgoyMDI2MDEwNC4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D" 
@@ -168,7 +167,7 @@ function App() {
       {/* GALERIA */}
       <section className="container-pad">
         <FadeInSection>
-          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria Premium</h2>
           <div className="gallery-grid">
             {galleryImages.map((img, index) => (
               <div className="gallery-item" key={index}>
@@ -179,11 +178,10 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* AVALIAÇÕES REAIS DO GOOGLE (ELFSIGHT) */}
+      {/* AVALIAÇÕES */}
       <section className="container-pad bg-darker">
         <FadeInSection>
           <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>O que dizem nossos hóspedes</h2>
-          {/* Widget Elfsight integrado */}
           <div className="elfsight-app-51eecd09-3bb0-463a-a1d0-9f6af0a06a84" data-elfsight-app-lazy></div>
         </FadeInSection>
       </section>

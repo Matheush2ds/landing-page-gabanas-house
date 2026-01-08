@@ -1,14 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
-// Ícones (Configuração segura para não quebrar o build)
+// Ícones gerais (fa6)
 import { 
-  FaWifi, FaCar, FaTv, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
-  FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaUmbrellaBeach 
+  FaWifi, FaCar, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
+  FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaUmbrellaBeach,
+  FaAirbnb // Importando ícone do Airbnb
 } from 'react-icons/fa6';
-import { BiFridge } from 'react-icons/bi';
-import { MdMicrowave, MdOutdoorGrill } from 'react-icons/md';
+import { MdOutdoorGrill } from 'react-icons/md';
+// Importando ícone do Booking (do pacote simple icons 'si')
+import { SiBooking } from 'react-icons/si';
 
+// Componente de Animação
 const FadeInSection = ({ children }) => {
   const domRef = useRef();
   useEffect(() => {
@@ -50,6 +53,23 @@ function App() {
     { src: "/img/Banheiro1.png", alt: "Banheiro Social" },
   ];
 
+  // Componente para os botões de ação (reutilizável)
+  const ActionButtons = () => (
+    <>
+      <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="btn-big btn-whatsapp-hero">
+        <FaWhatsapp /> Falar no WhatsApp
+      </a>
+      <div className="btn-group">
+        <a href={linkAirbnb} target="_blank" rel="noreferrer" className="btn-big btn-airbnb">
+          <FaAirbnb /> Airbnb
+        </a>
+        <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-big btn-booking">
+          <SiBooking /> Booking
+        </a>
+      </div>
+    </>
+  );
+
   return (
     <div className="App">
       
@@ -58,75 +78,78 @@ function App() {
         <FaWhatsapp />
       </a>
 
+      {/* HERO */}
       <header className="hero" style={{ backgroundImage: "url('/img/Piscina1.png')" }}>
         <div className="overlay"></div>
         <div className="hero-content fade-in-section is-visible">
           <p className="badge">⭐ Mais de 2 anos de Excelência em Caldas Novas</p>
           <h1>Gabana's House</h1>
-          <p>Luxo, privacidade e a melhor localização da cidade.</p>
-          
-          <a href={linkWhatsapp} className="btn-whatsapp">
-            <FaWhatsapp /> Falar no WhatsApp
-          </a>
-          
-          <div className="btn-group">
-            <a href={linkAirbnb} target="_blank" rel="noreferrer" className="btn-gold">Airbnb</a>
-            <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-gold">Booking</a>
-          </div>
+          <p>Privacidade, Conforto e a melhor localização da cidade.</p>
+          <ActionButtons />
         </div>
       </header>
 
+      {/* LOCALIZAÇÃO */}
       <section className="container-pad">
         <FadeInSection>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>Localização Premium</h2>
-            <p style={{ color: '#aaa', maxWidth: '600px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '15px' }}>Localização Privilegiada</h2>
+            <p style={{ color: '#aaa', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
               A conveniência de estar no centro com a tranquilidade que você merece.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center' }} className="split-section">
+          {/* Seção Dividida: Texto + Foto da Fachada */}
+          <div className="split-section">
             <div>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <li style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                  <FaLocationDot style={{ color: 'var(--gold)', fontSize: '1.5rem' }} />
+              <ul className="location-list">
+                <li className="location-item">
+                  <FaLocationDot className="location-icon" />
                   <div>
                     <strong>150m do Casarão</strong>
-                    <div style={{ fontSize: '0.9rem', color: '#888' }}>Ponto turístico histórico da cidade.</div>
+                    <div style={{ color: '#888' }}>Ponto turístico histórico da cidade.</div>
                   </div>
                 </li>
-                <li style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                  <FaCar style={{ color: 'var(--gold)', fontSize: '1.5rem' }} />
+                <li className="location-item">
+                  <FaCar className="location-icon" />
                   <div>
                     <strong>2 Minutos do Centro</strong>
-                    <div style={{ fontSize: '0.9rem', color: '#888' }}>Acesso rápido a tudo.</div>
+                    <div style={{ color: '#888' }}>Acesso rápido a tudo.</div>
                   </div>
                 </li>
-                <li style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-                  <FaUsers style={{ color: 'var(--gold)', fontSize: '1.5rem' }} />
+                <li className="location-item">
+                  <FaUsers className="location-icon" />
                   <div>
                     <strong>Vizinhança Completa</strong>
-                    <div style={{ fontSize: '0.9rem', color: '#888' }}>
-                      Ao lado do <strong>Supermercado Reis</strong>, Rua da Feira, Pista de Cooper e as melhores sorveterias.
+                    <div style={{ color: '#888' }}>
+                      Ao lado do <strong>Supermercado Reis</strong>, Rua da Feira, Pista de Cooper, Hamburgueria, Sorveterias e Posto de combustivel.
                     </div>
                   </div>
                 </li>
               </ul>
             </div>
             
-            <div className="map-container">
-              <iframe 
-                src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/@-17.7470599,-48.6229068,16z/data=!4m6!3m5!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7?entry=ttu&g_ep=EgoyMDI2MDEwNC4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D" 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mapa Caldas Novas"
-              ></iframe>
+            {/* FOTO DA FACHADA AQUI PARA CORRIGIR O ERRO */}
+            <div>
+                <img src="/img/fachada.png" alt="Fachada da Gabana's House" className="location-foto" loading="lazy"/>
             </div>
           </div>
+
+          {/* Mapa logo abaixo */}
+          <div className="map-container">
+            <iframe 
+              src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/@-17.7470599,-48.6229068,16z/data=!4m6!3m5!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7?entry=ttu&g_ep=EgoyMDI2MDEwNC4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Mapa Caldas Novas"
+            ></iframe>
+          </div>
+
         </FadeInSection>
       </section>
 
-      <section className="container-pad" style={{ background: '#111' }}>
+      {/* COMODIDADES */}
+      <section className="container-pad bg-darker">
         <FadeInSection>
           <h2 style={{ textAlign: 'center' }}>Tudo para sua estadia</h2>
           <div className="amenities-grid">
@@ -142,9 +165,10 @@ function App() {
         </FadeInSection>
       </section>
 
+      {/* GALERIA */}
       <section className="container-pad">
         <FadeInSection>
-          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria Premium</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria</h2>
           <div className="gallery-grid">
             {galleryImages.map((img, index) => (
               <div className="gallery-item" key={index}>
@@ -155,26 +179,21 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* --- AVALIAÇÕES REAIS DO GOOGLE (ELFSIGHT) --- */}
-      <section className="container-pad" style={{ background: '#111' }}>
+      {/* AVALIAÇÕES REAIS DO GOOGLE (ELFSIGHT) */}
+      <section className="container-pad bg-darker">
         <FadeInSection>
           <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>O que dizem nossos hóspedes</h2>
-          
           {/* Widget Elfsight integrado */}
           <div className="elfsight-app-51eecd09-3bb0-463a-a1d0-9f6af0a06a84" data-elfsight-app-lazy></div>
-          
         </FadeInSection>
       </section>
 
-      <footer style={{ padding: '60px 20px', textAlign: 'center', borderTop: '1px solid #222' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '20px' }}>Sua estadia em Caldas Novas</h2>
-        <p style={{marginBottom: '30px', color: '#aaa'}}>Reservas a partir de R$ 500,00 (Baixa Temporada)</p>
-        <div className="btn-group">
-          <a href={linkWhatsapp} className="btn-whatsapp"><FaWhatsapp /> Reservar Direto</a>
-          <a href={linkAirbnb} target="_blank" rel="noreferrer" className="btn-gold">Airbnb</a>
-          <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-gold">Booking</a>
-        </div>
-        <p style={{ marginTop: '30px', color: '#666', fontSize: '0.8rem' }}>
+      {/* FOOTER */}
+      <footer className="footer">
+        <h2>Sua estadia em Caldas Novas</h2>
+        <p className="footer-price">Reservas a partir de R$ 500,00 (Baixa Temporada)</p>
+        <ActionButtons />
+        <p style={{ marginTop: '40px', color: '#666', fontSize: '0.9rem' }}>
           Gabana's House © 2024 • Caldas Novas, GO
         </p>
       </footer>

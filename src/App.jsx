@@ -1,18 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
-// Ícones gerais (fa6)
 import { 
   FaWifi, FaCar, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
   FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaUmbrellaBeach,
-  FaAirbnb 
+  FaAirbnb, FaCalendarCheck 
 } from 'react-icons/fa6';
 import { MdOutdoorGrill } from 'react-icons/md';
 
-// --- CORREÇÃO AQUI: O nome correto é SiBookingdotcom ---
-import { SiBookingdotcom } from 'react-icons/si';
-
-// Componente de Animação
 const FadeInSection = ({ children }) => {
   const domRef = useRef();
   useEffect(() => {
@@ -65,8 +60,8 @@ function App() {
           <FaAirbnb /> Airbnb
         </a>
         <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-big btn-booking">
-          {/* Ícone corrigido aqui */}
-          <SiBookingdotcom /> Booking
+          {/* Ícone Seguro de Calendário/Reserva */}
+          <FaCalendarCheck /> Booking
         </a>
       </div>
     </>
@@ -167,7 +162,7 @@ function App() {
       {/* GALERIA */}
       <section className="container-pad">
         <FadeInSection>
-          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria Premium</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria</h2>
           <div className="gallery-grid">
             {galleryImages.map((img, index) => (
               <div className="gallery-item" key={index}>

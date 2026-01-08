@@ -163,12 +163,12 @@ function App() {
             </div>
 
             <div className="map-container">
-               {/* CORREÇÃO DO LINK DO MAPA AQUI */}
+               {/* MAPA ATUALIZADO PARA "GABANAS HOUSE" EXATO */}
                <iframe 
                 className="map-embed"
-                src="https://maps.google.com/maps?q=Rua+7+Av+A+Itaguai+1+Caldas+Novas&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.776657688019!2d-48.6237007!3d-17.7469986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94a32d2d1659d477%3A0x7c900e9859e1bdc8!2sGabanas%20House%20Casa%20para%20Temporada!5e0!3m2!1spt-BR!2sbr!4v1709930000000!5m2!1spt-BR!2sbr"
                 loading="lazy"
-                title="Mapa Caldas Novas"
+                title="Mapa Gabana's House"
               ></iframe>
               <div className="map-overlay-info">
                 <FaLocationDot /> Rua 7 - Av. A, Qd. 04 Lt. 27 - Itaguai 1
@@ -273,7 +273,7 @@ function App() {
         
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} Gabana's House • Todos os direitos reservados.</p>
-          <p className="dev-credit">Feito com carinho por <span className="gold-text">Optima Sistemas</span></p>
+          <p className="dev-credit">Desenvolvido por <span className="gold-text">Optima Sistemas</span></p>
         </div>
       </footer>
     </div>

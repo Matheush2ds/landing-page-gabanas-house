@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
+// --- CORREÇÃO FINAL E DEFINITIVA DOS ÍCONES ---
+// Removemos a biblioteca problemática (si) e usamos apenas a (fa6) que funciona
 import { 
   FaWifi, FaCar, FaSnowflake, FaKitchenSet, FaPersonSwimming, 
   FaDog, FaUsers, FaWhatsapp, FaStar, FaLocationDot, FaUmbrellaBeach,
-  FaAirbnb, FaCalendarCheck 
+  FaAirbnb, FaCalendarCheck // Ícone seguro para o Booking
 } from 'react-icons/fa6';
 import { MdOutdoorGrill } from 'react-icons/md';
 
@@ -49,18 +51,18 @@ function App() {
     { src: "/img/Banheiro1.png", alt: "Banheiro Social" },
   ];
 
-  // Componente para os botões de ação
   const ActionButtons = () => (
     <>
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="btn-big btn-whatsapp-hero">
         <FaWhatsapp /> Falar no WhatsApp
       </a>
       <div className="btn-group">
+        {/* BOTÃO AIRBNB GRANDE */}
         <a href={linkAirbnb} target="_blank" rel="noreferrer" className="btn-big btn-airbnb">
           <FaAirbnb /> Airbnb
         </a>
+        {/* BOTÃO BOOKING GRANDE (Ícone Corrigido) */}
         <a href={linkBooking} target="_blank" rel="noreferrer" className="btn-big btn-booking">
-          {/* Ícone Seguro de Calendário/Reserva */}
           <FaCalendarCheck /> Booking
         </a>
       </div>
@@ -70,12 +72,10 @@ function App() {
   return (
     <div className="App">
       
-      {/* Botão Flutuante */}
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="floating-whatsapp">
         <FaWhatsapp />
       </a>
 
-      {/* HERO */}
       <header className="hero" style={{ backgroundImage: "url('/img/Piscina1.png')" }}>
         <div className="overlay"></div>
         <div className="hero-content fade-in-section is-visible">
@@ -86,7 +86,6 @@ function App() {
         </div>
       </header>
 
-      {/* LOCALIZAÇÃO */}
       <section className="container-pad">
         <FadeInSection>
           <div style={{ textAlign: 'center', marginBottom: '50px' }}>
@@ -126,13 +125,18 @@ function App() {
             </div>
             
             <div>
-                <img src="/img/fachada.png" alt="Fachada da Gabana's House" className="location-foto" loading="lazy"/>
+                <img 
+                  src="/img/fachada.png" 
+                  alt="Fachada da Gabana's House" 
+                  className="location-foto" 
+                  loading="lazy"
+                />
             </div>
           </div>
 
           <div className="map-container">
             <iframe 
-              src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/@-17.7470599,-48.6229068,16z/data=!4m6!3m5!1s0x94a7312d1659d477:0x7c900e9859e1bdc8!8m2!3d-17.7469986!4d-48.6237007!16s%2Fg%2F11vyw46yl7?entry=ttu&g_ep=EgoyMDI2MDEwNC4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D" 
+              src="https://www.google.com/maps/place/Gabanas+House+Casa+para+Temporada/data=!4m2!3m1!1s0x0:0x7c900e9859e1bdc8?sa=X&ved=1t:2428&ictx=111" 
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
               title="Mapa Caldas Novas"
@@ -142,7 +146,6 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* COMODIDADES */}
       <section className="container-pad bg-darker">
         <FadeInSection>
           <h2 style={{ textAlign: 'center' }}>Tudo para sua estadia</h2>
@@ -159,10 +162,9 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* GALERIA */}
       <section className="container-pad">
         <FadeInSection>
-          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria</h2>
+          <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>Galeria Premium</h2>
           <div className="gallery-grid">
             {galleryImages.map((img, index) => (
               <div className="gallery-item" key={index}>
@@ -173,7 +175,6 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* AVALIAÇÕES */}
       <section className="container-pad bg-darker">
         <FadeInSection>
           <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>O que dizem nossos hóspedes</h2>
@@ -181,7 +182,6 @@ function App() {
         </FadeInSection>
       </section>
 
-      {/* FOOTER */}
       <footer className="footer">
         <h2>Sua estadia em Caldas Novas</h2>
         <p className="footer-price">Reservas a partir de R$ 500,00 (Baixa Temporada)</p>

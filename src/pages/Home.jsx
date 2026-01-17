@@ -9,6 +9,7 @@ import {
 import { MdOutdoorGrill, MdLocalGroceryStore, MdCleaningServices, MdSentimentVerySatisfied } from 'react-icons/md';
 import '../components/Reviews.css';
 
+// Componente para Animação de Fade
 const FadeInSection = ({ children }) => {
   const domRef = useRef();
   useEffect(() => {
@@ -24,7 +25,7 @@ const FadeInSection = ({ children }) => {
   return <div className="fade-in-section" ref={domRef}>{children}</div>;
 };
 
-// DADOS REAIS DAS AVALIAÇÕES (BOOKING - CONFIRMADOS)
+// DADOS REAIS DAS AVALIAÇÕES (BOOKING)
 const reviewsData = [
     {
       id: 1,
@@ -36,17 +37,17 @@ const reviewsData = [
     },
     {
       id: 2,
-      name: "Fernando",
+      name: "Ingrid",
       source: "Booking",
-      text: "Tivemos uma experiência maravilhosa nesta casa. O local é exatamente como descrito, muito organizado e com todas as comodidades necessárias para uma estadia confortável. A localização é excelente.",
+      text: "Casa muito organizada, fui recebida com a casa bem cheirosa e limpa!!",
       stars: 5,
       date: "Brasil"
     },
     {
       id: 3,
-      name: "Ingrid",
+      name: "Fernando",
       source: "Booking",
-      text: "Casa muito organizada, fui recebida com a casa bem cheirosa e limpa!!",
+      text: "Tivemos uma experiência maravilhosa nesta casa. O local é exatamente como descrito, muito organizado e com todas as comodidades necessárias para uma estadia confortável. A localização é excelente.",
       stars: 5,
       date: "Brasil"
     },
@@ -94,7 +95,7 @@ const Home = () => {
       <header className="hero" style={{ backgroundImage: "url('/img/Piscina1.png')" }}>
         <div className="overlay"></div>
         <div className="hero-content fade-in-section is-visible">
-          <div className="badge">⭐ Superhost Caldas Novas</div>
+          <div className="badge">Superhost Caldas Novas</div>
           <h1>Gabana's House</h1>
           <p className="hero-subtitle">Conforto, privacidade e a localização mais cobiçada da cidade.</p>
           <p className="hero-description">Transforme sua viagem em memórias incríveis na casa de temporada mais aconchegante da região.</p>
@@ -106,7 +107,7 @@ const Home = () => {
         </div>
       </header>
 
-      {/* LOCALIZAÇÃO */}
+      {/* LOCALIZAÇÃO (ESTÁ AQUI!) */}
       <section className="container-pad">
         <FadeInSection>
           <div className="section-header">
@@ -148,9 +149,10 @@ const Home = () => {
             </div>
 
             <div className="map-container">
+               {/* URL CORRIGIDA PARA O MAPA CARREGAR CORRETAMENTE */}
                <iframe 
                 className="map-embed"
-                src="http://googleusercontent.com/maps.google.com/maps?q=Rua+7+Av+A+Qd+04+Lt+27+Itaguai+1+Caldas+Novas&t=m&z=16&output=embed&iwloc=near"
+                src="https://maps.google.com/maps?q=Rua+7+Av+A+Qd+04+Lt+27+Itaguai+1+Caldas+Novas&t=m&z=16&output=embed&iwloc=near"
                 loading="lazy"
                 title="Mapa Gabana's House"
                 allowFullScreen
@@ -203,10 +205,6 @@ const Home = () => {
                 <div className="score-badge">
                     <span className="score-val">10</span>
                     <span className="score-label"><MdCleaningServices/> Limpeza</span>
-                </div>
-                <div className="score-badge">
-                    <span className="score-val">10</span>
-                    <span className="score-label"><FaUsers/> Funcionários</span>
                 </div>
                 <div className="score-badge">
                     <span className="score-val">9.9</span>

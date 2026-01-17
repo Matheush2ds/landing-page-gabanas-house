@@ -5,7 +5,8 @@ import { FaBars, FaXmark, FaWhatsapp, FaInstagram, FaAirbnb, FaCalendarCheck } f
 
 import Home from './pages/Home';
 import Galeria from './pages/Galeria';
-import Reservas from './pages/Reservas'; 
+import Reservas from './pages/Reservas';
+import Promo from './pages/Promo';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -74,6 +75,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/reservas" element={<Reservas />} />
+        <Route path="/promo" element={<Promo />} />
       </Routes>
 
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="floating-whatsapp" aria-label="Falar no WhatsApp">

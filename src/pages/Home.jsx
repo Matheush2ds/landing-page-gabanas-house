@@ -25,7 +25,7 @@ const FadeInSection = ({ children }) => {
   return <div className="fade-in-section" ref={domRef}>{children}</div>;
 };
 
-// DADOS REAIS DAS AVALIAÇÕES (BOOKING)
+// DADOS REAIS DAS AVALIAÇÕES (CONFORME PRINTS)
 const reviewsData = [
     {
       id: 1,
@@ -47,7 +47,7 @@ const reviewsData = [
       id: 3,
       name: "Fernando",
       source: "Booking",
-      text: "Tivemos uma experiência maravilhosa nesta casa. O local é exatamente como descrito, muito organizado e com todas as comodidades necessárias para uma estadia confortável. A localização é excelente.",
+      text: "Tivemos uma experiência maravilhosa nesta casa. O local é exatamente como descrito, muito organizado e com todas as comodidades necessárias para uma estadia confortável. A localização é excelente. Além disso, o anfitrião foi muito prestativo,...",
       stars: 5,
       date: "Brasil"
     },
@@ -55,7 +55,7 @@ const reviewsData = [
       id: 4,
       name: "Marlice",
       source: "Booking",
-      text: "Gostei de tudo na casa, espaçosa, todos os quartos com suíte...",
+      text: "Gostei de tudo na casa, espaçosa,todos os quartos com suíte....",
       stars: 5,
       date: "Brasil"
     }
@@ -66,6 +66,9 @@ const Home = () => {
   const linkAirbnb = "https://www.airbnb.com.br/rooms/952305594473672721?adults=10";
   const linkBooking = "https://www.booking.com/hotel/br/casa-de-aluguel-para-temporada-caldas-novas.pt-br.html";
   const linkInstagram = "https://www.instagram.com/gabanas_house?igsh=a2RpNXMzcHpwc25w";
+
+  // Endereço exato para o Google Maps
+  const mapQuery = "Rua 7 - Av. A, qd: 04 Lt: 27 - Itaguai 1, Caldas Novas - GO";
 
   const ActionButtons = () => (
     <div className="btn-group">
@@ -107,7 +110,7 @@ const Home = () => {
         </div>
       </header>
 
-      {/* LOCALIZAÇÃO (ESTÁ AQUI!) */}
+      {/* LOCALIZAÇÃO */}
       <section className="container-pad">
         <FadeInSection>
           <div className="section-header">
@@ -149,10 +152,10 @@ const Home = () => {
             </div>
 
             <div className="map-container">
-               {/* URL CORRIGIDA PARA O MAPA CARREGAR CORRETAMENTE */}
+               {/* URL DO MAPA COM O ENDEREÇO */}
                <iframe 
                 className="map-embed"
-                src="https://maps.google.com/maps?q=Rua+7+Av+A+Qd+04+Lt+27+Itaguai+1+Caldas+Novas&t=m&z=16&output=embed&iwloc=near"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=m&z=16&output=embed&iwloc=near`}
                 loading="lazy"
                 title="Mapa Gabana's House"
                 allowFullScreen
@@ -205,6 +208,10 @@ const Home = () => {
                 <div className="score-badge">
                     <span className="score-val">10</span>
                     <span className="score-label"><MdCleaningServices/> Limpeza</span>
+                </div>
+                <div className="score-badge">
+                    <span className="score-val">10</span>
+                    <span className="score-label"><FaUsers/> Funcionários</span>
                 </div>
                 <div className="score-badge">
                     <span className="score-val">9.9</span>

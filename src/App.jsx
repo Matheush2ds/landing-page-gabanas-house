@@ -75,7 +75,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/reservas" element={<Reservas />} />
+        
+        {/* Rotas da Promoção */}
         <Route path="/promo" element={<Promo />} />
+        <Route path="/avaliacao" element={<Promo />} />
       </Routes>
 
       <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="floating-whatsapp" aria-label="Falar no WhatsApp">

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import './App.css';
 import { FaBars, FaXmark, FaWhatsapp, FaInstagram, FaAirbnb, FaCalendarCheck } from 'react-icons/fa6';
 
 import Home from './pages/Home';
@@ -8,11 +7,10 @@ import Galeria from './pages/Galeria';
 import Reservas from './pages/Reservas';
 import Promo from './pages/Promo';
 
+// Componente para rolar para o topo ao mudar de página
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 };
 
@@ -29,12 +27,14 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-content">
-        <Link to="/" className="logo" style={{ textDecoration: 'none' }}>GABANA'S HOUSE</Link>
+        <Link to="/" className="logo">GABANA'S HOUSE</Link>
+        
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Início</Link>
           <Link to="/galeria" onClick={() => setMenuOpen(false)}>Galeria de Fotos</Link>
-          <Link to="/reservas" onClick={() => setMenuOpen(false)} className="nav-cta">Reservar</Link>
+          <Link to="/reservas" onClick={() => setMenuOpen(false)} className="nav-cta">Reservar Agora</Link>
         </div>
+
         <div className="mobile-toggle" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <FaXmark /> : <FaBars />}
         </div>
@@ -47,7 +47,7 @@ function App() {
   const linkWhatsapp = "https://wa.me/5564992415277?text=Ol%C3%A1%2C%20vi%20o%20site%20da%20Gabana%27s%20House%20e%20gostaria%20de%20verificar%20disponibilidade!";
   const linkAirbnb = "https://www.airbnb.com.br/rooms/952305594473672721?adults=10";
   const linkBooking = "https://www.booking.com/hotel/br/casa-de-aluguel-para-temporada-caldas-novas.pt-br.html";
-  const linkInstagram = "https://www.instagram.com/gabanas_house?igsh=a2RpNXMzcHpwc25w";
+  const linkInstagram = "https://www.instagram.com/gabanas_house";
 
   const FooterActions = () => (
     <div className="btn-group">
@@ -75,14 +75,20 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/galeria" element={<Galeria />} />
         <Route path="/reservas" element={<Reservas />} />
-        
-        {/* Rotas da Promoção */}
         <Route path="/promo" element={<Promo />} />
         <Route path="/avaliacao" element={<Promo />} />
       </Routes>
 
-      <a href={linkWhatsapp} target="_blank" rel="noreferrer" className="floating-whatsapp" aria-label="Falar no WhatsApp">
+      {/* BOTÃO FLUTUANTE COM NOTIFICAÇÃO */}
+      <a 
+        href={linkWhatsapp} 
+        target="_blank" 
+        rel="noreferrer" 
+        className="floating-whatsapp" 
+        aria-label="Falar no WhatsApp"
+      >
         <FaWhatsapp />
+        <div className="notification-dot"></div>
         <span className="tooltip">Orçamento Rápido</span>
       </a>
 
@@ -92,9 +98,12 @@ function App() {
             <h2>Gabana's House</h2>
             <p>Sua casa de temporada em Caldas Novas.</p>
           </div>
+          
           <div className="footer-actions">
             <h3>Vamos agendar sua data?</h3>
-            <p className="price">Fale conosco e consulte condições especiais</p>
+            <p className="price" style={{color: 'var(--gold)', marginBottom: '30px'}}>
+              Fale conosco e consulte condições especiais para pagamento direto.
+            </p>
             <FooterActions />
           </div>
         </div>
@@ -107,5 +116,5 @@ function App() {
     </div>
   );
 }
-
+  
 export default App;

@@ -1,23 +1,24 @@
-# Gabana's House - Landing Page 🏡
+# Gabana's House - Landing Page
 
-Projeto desenvolvido para a modernização da **Gabana's House**, a casa de temporada da minha família em Caldas Novas - GO.
+Projeto desenvolvido para a modernização da Gabana's House, casa de temporada premium em Caldas Novas - GO.
 
-O objetivo principal foi criar uma **Landing Page simples, moderna e de alta conversão** para profissionalizar o aluguel da propriedade. O site serve como um cartão de visitas digital, centralizando fotos, avaliações e links diretos para reserva (WhatsApp, Airbnb e Booking), facilitando a comunicação com hóspedes.
+O objetivo principal foi criar uma Landing Page moderna, focada em UI/UX de alto nível e alta conversão para profissionalizar o aluguel da propriedade. Com uma estética inspirada em hotéis boutique, o site funciona como um cartão de visitas digital de luxo, centralizando fotos, avaliações e links diretos para reserva (WhatsApp, Airbnb e Booking), priorizando a comunicação direta e o fechamento sem taxas.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-* **React** (Vite): Para performance e carregamento instantâneo.
-* **CSS3 Moderno**: Design responsivo, variáveis e layout limpo.
-* **React Icons**: Ícones visuais para melhorar a experiência do usuário.
-* **Integrações**:
-    * **Google Maps**: Localização exata e pontos turísticos.
-    * **Elfsight**: Widget para exibir avaliações reais do Google.
-    * **WhatsApp API**: Botão flutuante para contato direto.
-* **Deploy**: Hospedado na Vercel com CI/CD automático.
+* React (Vite): Para performance e carregamento rápido.
+* Tailwind CSS & PostCSS: Estilização ágil, design responsivo (mobile-first) e paleta de cores customizada.
+* React Icons: Biblioteca de ícones para interface de usuário.
+* React Helmet: Gerenciamento de tags para otimização de SEO.
+* Integrações:
+    * Google Maps Embed: Localização exata e proximidade com pontos turísticos.
+    * WhatsApp API: Botão flutuante e CTAs otimizados para contato direto.
+* Arquitetura: Estrutura modular e componentizada (Clean Code).
+* Deploy: Hospedado na Vercel com pipeline de CI/CD automático.
 
-## 🌐 Ver Projeto Online
+## Ver Projeto Online
 
-Acesse: [https://gabanashousetemporada.vercel.app](https://gabanashousetemporada.vercel.app)
+Acesse: https://gabanashousetemporada.vercel.app
 
 ---
-*Desenvolvido com carinho para a família.*
+Desenvolvido com carinho para a família.

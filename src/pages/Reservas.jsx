@@ -8,47 +8,42 @@ const Reservas = () => {
   const linkBooking = "https://www.booking.com/hotel/br/casa-de-aluguel-para-temporada-caldas-novas.pt-br.html";
 
   return (
-    <div className="container-pad" style={{ paddingTop: '120px', minHeight: '100vh' }}>
+    <div className="py-32 px-6 max-w-7xl mx-auto min-h-screen flex flex-col justify-center">
       <Helmet>
         <title>Reservas | Gabana's House Caldas Novas</title>
-        <meta name="description" content="Faça sua reserva na Gabana's House pelo Airbnb, Booking ou direto pelo WhatsApp com desconto. Consulte disponibilidade agora." />
-        <link rel="canonical" href="https://gabanashousetemporada.vercel.app/reservas" />
       </Helmet>
 
-      <div className="section-header">
-        <span className="section-tag">Garanta sua data</span>
-        <h2>Escolha onde reservar</h2>
-        <p>Oferecemos flexibilidade e segurança em diversas plataformas.</p>
+      <div className="text-center max-w-2xl mx-auto mb-20">
+        <span className="text-xs font-bold tracking-[0.3em] uppercase text-[#8A7B66] block mb-6">Garanta sua data</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#1A1A1A] mb-6 leading-tight">Escolha onde<br/>reservar.</h2>
+        <p className="text-lg text-[#5C5C5C]">Oferecemos flexibilidade e segurança nas maiores plataformas do mercado.</p>
       </div>
 
-      <div className="reserva-grid" style={{ display: 'grid', gap: '20px', maxWidth: '600px', margin: '0 auto' }}>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        {/* Card WhatsApp */}
-        <div className="amenity-card" style={{ border: '1px solid var(--whatsapp)' }}>
-          <FaWhatsapp style={{ fontSize: '3rem', color: 'var(--whatsapp)' }} />
-          <h3>Reserva Direta (Menor Taxa)</h3>
-          <p>Fale diretamente com o proprietário, sem taxas de plataforma. Pagamento seguro via PIX ou Cartão.</p>
-          <a href={linkWhatsapp} className="btn-big btn-whatsapp-hero" style={{ marginTop: '15px', width: '100%' }}>
+        <div className="bg-white border border-[#E5E0D8] p-10 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-shadow duration-300">
+          <FaWhatsapp className="text-5xl text-[#25D366] mb-8" />
+          <h3 className="text-xl font-bold text-[#1A1A1A] mb-4">Reserva Direta</h3>
+          <p className="text-[#5C5C5C] mb-10 flex-grow leading-relaxed">A opção com menor taxa. Fale diretamente com o proprietário e garanta as melhores condições.</p>
+          <a href={linkWhatsapp} className="w-full bg-[#1A1A1A] text-white py-4 font-bold uppercase tracking-widest text-xs hover:bg-[#333] transition-colors">
             Chamar no WhatsApp
           </a>
         </div>
 
-        {/* Card Airbnb */}
-        <div className="amenity-card">
-          <FaAirbnb style={{ fontSize: '3rem', color: 'var(--airbnb)' }} />
-          <h3>Via Airbnb</h3>
-          <p>Superhost. Pagamento parcelado e garantia AirCover.</p>
-          <a href={linkAirbnb} className="btn-big btn-airbnb" style={{ marginTop: '15px', width: '100%' }}>
+        <div className="bg-white border border-[#E5E0D8] p-10 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-shadow duration-300">
+          <FaAirbnb className="text-5xl text-[#FF385C] mb-8" />
+          <h3 className="text-xl font-bold text-[#1A1A1A] mb-4">Via Airbnb</h3>
+          <p className="text-[#5C5C5C] mb-10 flex-grow leading-relaxed">Somos Superhost. Aproveite a segurança do pagamento parcelado e a garantia AirCover.</p>
+          <a href={linkAirbnb} className="w-full border border-[#E5E0D8] text-[#1A1A1A] hover:border-[#FF385C] hover:text-[#FF385C] py-4 font-bold uppercase tracking-widest text-xs transition-colors">
             Ver no Airbnb
           </a>
         </div>
 
-        {/* Card Booking */}
-        <div className="amenity-card">
-          <FaCalendarCheck style={{ fontSize: '3rem', color: 'var(--booking)' }} />
-          <h3>Via Booking.com</h3>
-          <p>Programa Genius e facilidade de cancelamento.</p>
-          <a href={linkBooking} className="btn-big btn-booking" style={{ marginTop: '15px', width: '100%' }}>
+        <div className="bg-white border border-[#E5E0D8] p-10 flex flex-col items-center text-center shadow-sm hover:shadow-xl transition-shadow duration-300">
+          <FaCalendarCheck className="text-5xl text-[#006CE4] mb-8" />
+          <h3 className="text-xl font-bold text-[#1A1A1A] mb-4">Via Booking.com</h3>
+          <p className="text-[#5C5C5C] mb-10 flex-grow leading-relaxed">Participe do Programa Genius e conte com a facilidade e flexibilidade de cancelamento.</p>
+          <a href={linkBooking} className="w-full border border-[#E5E0D8] text-[#1A1A1A] hover:border-[#006CE4] hover:text-[#006CE4] py-4 font-bold uppercase tracking-widest text-xs transition-colors">
             Ver no Booking
           </a>
         </div>

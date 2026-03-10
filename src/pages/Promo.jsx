@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FaGoogle, FaWhatsapp, FaGift, FaCircleExclamation } from 'react-icons/fa6';
 import confetti from 'canvas-confetti';
@@ -8,116 +8,102 @@ const Promo = () => {
   const googleLink = "https://g.page/r/Cci94VmYDpB8EBE/review"; 
   const whatsappNumber = "5564992415277";
 
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+
   const handleReviewClick = () => {
     window.open(googleLink, '_blank');
     setStep(2);
   };
 
   const handleGenerateVoucher = () => {
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#D4AF37', '#ffffff']
+    confetti({ 
+      particleCount: 200, 
+      spread: 90, 
+      origin: { y: 0.5 }, 
+      colors: ['#D4AF37', '#ffffff', '#8A7B66'],
+      disableForReducedMotion: true
     });
     setStep(3);
   };
 
   return (
-    <div className="container-pad" style={{ paddingTop: '120px', minHeight: '80vh', textAlign: 'center' }}>
+    <div className="bg-[#0A0A0A] min-h-screen flex items-center justify-center relative overflow-hidden py-32 px-6">
       <Helmet>
         <title>Resgatar Prêmio | Gabana's House</title>
         <meta name="robots" content="noindex" />
       </Helmet>
 
-      <div style={{ maxWidth: '500px', margin: '0 auto' }}>
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-[#D4AF37]/5 blur-[150px] rounded-full pointer-events-none"></div>
+
+      <div className="max-w-lg w-full text-center relative z-10">
         
-        <div style={{ fontSize: '3.5rem', color: 'var(--gold)', marginBottom: '20px' }}>
-            <FaGift />
+        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#1A1A1A] border border-[#333] mb-8 shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+          <FaGift className="text-4xl text-[#D4AF37]" />
         </div>
 
         {step === 1 && (
-          <div className="fade-in-section is-visible">
-            <h2>Ganhe 10% OFF</h2>
-            <p style={{ marginBottom: '30px' }}>Avalie sua estadia no Google e ganhe desconto na sua próxima reserva direta.</p>
+          <div className="transition-all duration-700 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">Um presente<br/>para você.</h2>
+            <p className="text-[#A39D98] text-lg mb-10 leading-relaxed">Avalie sua estadia no Google e desbloqueie <strong className="text-white font-normal">10% OFF</strong> na sua próxima reserva conosco.</p>
             
             <button 
-              onClick={handleReviewClick}
-              className="btn-big" 
-              style={{ background: '#4285F4', width: '100%', justifyContent: 'center' }}
+              onClick={handleReviewClick} 
+              className="w-full flex items-center justify-center gap-4 bg-white text-[#1A1A1A] px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-[#F0F0F0] transition-colors shadow-xl"
             >
-              <FaGoogle /> Avaliar no Google
+              <FaGoogle className="text-xl text-[#4285F4]" /> Avaliar no Google
             </button>
-            <p style={{ fontSize: '0.8rem', marginTop: '15px', opacity: 0.7 }}>É rapidinho! Leva menos de 1 minuto.</p>
+            <p className="text-xs text-[#5C5C5C] font-bold uppercase tracking-widest mt-8">Leva menos de 1 minuto</p>
           </div>
         )}
 
         {step === 2 && (
-          <div className="fade-in-section is-visible">
-            <h2>Obrigado! ⭐</h2>
-            <p style={{ marginBottom: '30px' }}>Já enviou sua avaliação? Clique abaixo para liberar seu presente.</p>
+          <div className="transition-all duration-700 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">Obrigado!</h2>
+            <p className="text-[#A39D98] text-lg mb-10 leading-relaxed">Sua opinião é fundamental. Clique abaixo para emitir o seu voucher exclusivo.</p>
             
             <button 
-              onClick={handleGenerateVoucher}
-              className="btn-big" 
-              style={{ background: 'var(--gold)', color: 'black', width: '100%', justifyContent: 'center' }}
+              onClick={handleGenerateVoucher} 
+              className="w-full bg-[#D4AF37] text-[#1A1A1A] px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-[#b5952f] transition-all shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:shadow-[0_0_60px_rgba(212,175,55,0.5)]"
             >
-              Gerar Meu Voucher
+              Emitir meu Voucher
             </button>
           </div>
         )}
 
         {step === 3 && (
-          <div className="fade-in-section is-visible">
-            <h2 style={{ color: 'var(--gold)' }}>Parabéns!</h2>
-            <p>Seu desconto foi ativado com sucesso.</p>
+          <div className="transition-all duration-700 animate-fade-in">
+            <h2 className="text-3xl font-serif text-[#D4AF37] mb-4">Parabéns!</h2>
+            <p className="text-[#A39D98] mb-10">O seu desconto foi ativado.</p>
 
-            {/* O VOUCHER */}
-            <div style={{ 
-              background: 'linear-gradient(145deg, #222, #1a1a1a)', 
-              padding: '30px', 
-              border: '2px dashed var(--gold)', 
-              borderRadius: '16px',
-              margin: '30px 0',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
-            }}>
-              <span style={{ display: 'block', fontSize: '0.8rem', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '2px' }}>Código Promocional</span>
-              <strong style={{ fontSize: '2.2rem', letterSpacing: '3px', color: '#fff', display: 'block' }}>GABANA10</strong>
-              <span style={{ fontSize: '0.9rem', color: 'var(--gold)', marginTop: '10px', display: 'block' }}>Válido até {new Date().getFullYear() + 1}</span>
+            <div className="bg-[#141414] border border-[#2C2C2C] p-10 relative overflow-hidden shadow-2xl mb-10 group hover:border-[#D4AF37]/50 transition-colors duration-500">
+              <div className="absolute inset-0 border-2 border-dashed border-[#D4AF37]/20 m-2 pointer-events-none"></div>
+              
+              <span className="block text-[10px] text-[#8A7B66] uppercase tracking-[0.3em] mb-4 font-bold relative z-10">Código Exclusivo</span>
+              <strong className="text-5xl md:text-6xl font-serif text-white tracking-wider block mb-4 relative z-10 drop-shadow-lg">GABANA10</strong>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] relative z-10">Válido até {new Date().getFullYear() + 1}</span>
             </div>
 
-            {/* REGRAS (LETRAS MIÚDAS) */}
-            <div style={{ 
-                background: 'rgba(255,255,255,0.05)', 
-                padding: '15px', 
-                borderRadius: '8px', 
-                fontSize: '0.8rem', 
-                color: '#aaa',
-                textAlign: 'left',
-                marginBottom: '20px'
-            }}>
-                <strong style={{color: 'white', display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '8px'}}>
-                    <FaCircleExclamation /> Regras de Uso:
-                </strong>
-                <ul style={{ paddingLeft: '20px', margin: 0 }}>
-                    <li>Válido por 1 ano a partir da emissão.</li>
-                    <li>Uso único (1 vez) por CPF/Hóspede.</li>
-                    <li>Válido <strong>somente</strong> para reservas feitas diretamente no WhatsApp (não aceito em Airbnb/Booking).</li>
-                </ul>
+            <div className="text-left bg-[#111] border border-[#222] p-8 mb-10">
+              <strong className="text-white flex items-center gap-3 mb-4 text-sm uppercase tracking-widest">
+                <FaCircleExclamation className="text-[#D4AF37] text-lg" /> Regras de Uso
+              </strong>
+              <ul className="space-y-3 text-sm text-[#A39D98] leading-relaxed">
+                <li className="flex gap-3"><span className="text-[#D4AF37]">•</span> Válido por 1 ano a partir da emissão.</li>
+                <li className="flex gap-3"><span className="text-[#D4AF37]">•</span> Uso único (1 vez) por CPF/Hóspede.</li>
+                <li className="flex gap-3"><span className="text-[#D4AF37]">•</span> Válido apenas para reservas diretas via WhatsApp (não aplicável em plataformas).</li>
+              </ul>
             </div>
 
             <a 
               href={`https://wa.me/${whatsappNumber}?text=Ol%C3%A1!%20Acabei%20de%20avaliar%20no%20Google%20e%20ganhei%20o%20cupom%20GABANA10%20para%20minha%20pr%C3%B3xima%20reserva%20direta.`}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-big btn-whatsapp-hero"
-              style={{ width: '100%', justifyContent: 'center' }}
+              target="_blank" rel="noreferrer"
+              className="w-full flex items-center justify-center gap-4 bg-[#25D366] text-white px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-[#1DA851] transition-colors shadow-lg"
             >
-              <FaWhatsapp /> Enviar para Anfitrião
+              <FaWhatsapp className="text-2xl" /> Validar com Anfitrião
             </a>
           </div>
         )}
-
       </div>
     </div>
   );

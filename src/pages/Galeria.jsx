@@ -30,37 +30,44 @@ const Galeria = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
-    <div className="container-pad" style={{ paddingTop: '120px', minHeight: '100vh' }}>
+    <div className="py-32 px-6 max-w-7xl mx-auto min-h-screen">
       <Helmet>
         <title>Fotos | Gabana's House - Caldas Novas</title>
-        <meta name="description" content="Veja fotos da piscina, churrasqueira e quartos." />
       </Helmet>
 
-      <div className="section-header">
-        <span className="section-tag">Tour Visual</span>
-        <h2>Conheça Nosso Cantinho</h2>
-        <p>Cada detalhe pensado no seu conforto.</p>
+      <div className="text-center max-w-2xl mx-auto mb-20">
+        <span className="text-xs font-bold tracking-[0.3em] uppercase text-[#8A7B66] block mb-6">Tour Visual</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#1A1A1A] mb-6 leading-tight">Conheça<br/>Nosso Cantinho.</h2>
+        <p className="text-lg text-[#5C5C5C]">Cada detalhe pensado no seu conforto.</p>
       </div>
 
-      <div className="gallery-grid">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {galleryImages.map((img, i) => (
-          <div className="gallery-item" key={i} onClick={() => { setIndex(i); setOpen(true); }}>
-             <img src={img.src} alt={img.alt} loading="lazy" />
-             <div className="gallery-overlay"><span>Ampliar</span></div>
+          <div 
+            key={i} 
+            onClick={() => { setIndex(i); setOpen(true); }}
+            className="relative aspect-[4/3] bg-[#E5E0D8] overflow-hidden cursor-zoom-in group"
+          >
+            <img 
+              src={img.src} 
+              alt={img.alt} 
+              loading="lazy" 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-white/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="border border-[#1A1A1A] text-[#1A1A1A] bg-transparent px-8 py-3 text-xs font-bold uppercase tracking-widest">
+                Ampliar
+              </span>
+            </div>
           </div>
         ))}
       </div>
 
-      <Lightbox
-        open={open}
-        close={() => setOpen(false)}
-        index={index}
-        slides={galleryImages.map(img => ({ src: img.src }))}
-      />
+      <Lightbox open={open} close={() => setOpen(false)} index={index} slides={galleryImages.map(img => ({ src: img.src }))} />
 
-      <div style={{textAlign: 'center', marginTop: '60px'}}>
-         <a href="https://www.instagram.com/gabanas_house" target="_blank" rel="noreferrer" className="insta-feed-link">
-           <FaInstagram /> Veja vídeos no Instagram
+      <div className="text-center mt-24">
+         <a href="https://www.instagram.com/gabanas_house" target="_blank" rel="noreferrer" className="inline-flex items-center gap-4 px-10 py-5 border border-[#E5E0D8] text-[#1A1A1A] hover:bg-white hover:shadow-lg transition-all font-bold uppercase tracking-widest text-xs">
+           <FaInstagram className="text-xl text-[#E1306C]" /> Veja vídeos no Instagram
          </a>
       </div>
     </div>

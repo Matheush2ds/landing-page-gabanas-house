@@ -11,9 +11,9 @@ import FinalCta from '../components/FinalCta';
 
 const Home = () => {
   return (
-    <div className="bg-[#0A0A0A] text-[#F9F8F6] font-sans overflow-x-hidden selection:bg-[#D4AF37] selection:text-[#0A0A0A]">
+    <div className="bg-dark-bg text-white font-sans overflow-x-hidden selection:bg-gold selection:text-dark-bg">
       <Helmet>
-        <title>Gabana's House | Casa de Temporada Boutique em Caldas Novas</title>
+        <title>Gabana's House | Casa de Temporada em Caldas Novas</title>
         <meta name="description" content="Hospedagem premium em Caldas Novas. Casa inteira com piscina aquecida, área gourmet e conforto absoluto para até 10 pessoas." />
       </Helmet>
 

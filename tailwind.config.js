@@ -7,51 +7,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        gold: {
-          DEFAULT: '#D4AF37',
-          hover: '#b5952f',
-          glow: 'rgba(212, 175, 55, 0.15)',
-        },
-        dark: {
+        gabana: {
           bg: '#0A0A0A',
-          surface: '#121212',
-          card: '#161616', 
-        },
-        brand: {
-          whatsapp: '#25D366',
-          airbnb: '#FF385C',
-          booking: '#006CE4',
-          instagram: '#E1306C',
+          card: '#141414',
+          gold: '#D4AF37',
+          'gold-hover': '#b5952f',
+          light: '#F9F8F6',
+          muted: '#A39D98',
+          dark: '#1A1A1A',
+          border: '#2C2C2C'
         }
       },
       fontFamily: {
-        sans: ['Manrope', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        serif: ['Playfair Display', 'serif'], // Exemplo, certifique-se de importar a fonte
+        sans: ['Inter', 'sans-serif'],
       },
       animation: {
-        'zoom-bg': 'zoomBg 25s infinite alternate ease-in-out',
-        'scroll-flow': 'scrollFlow 2s infinite',
-        'shimmer': 'shimmer 4s infinite',
-        'pulse-glow': 'pulseGlow 2s infinite',
+        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
       },
       keyframes: {
-        zoomBg: {
-          '0%': { transform: 'scale(1)' },
-          '100%': { transform: 'scale(1.15)' },
-        },
-        scrollFlow: {
-          '0%': { transform: 'scaleY(0)', transformOrigin: 'top' },
-          '50%': { transform: 'scaleY(1)', transformOrigin: 'top' },
-          '50.1%': { transformOrigin: 'bottom' },
-          '100%': { transform: 'scaleY(0)', transformOrigin: 'bottom' },
-        },
-        shimmer: {
-          '0%, 80%': { left: '-100%' },
-          '100%': { left: '200%' },
-        },
-        pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(37, 211, 102, 0)' },
-          '50%': { boxShadow: '0 0 0 15px rgba(37, 211, 102, 0.3)' },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         }
       }
     },

@@ -7,6 +7,6 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-dark-bg text-white font-sans antialiased overflow-x-hidden selection:bg-gold selection:text-dark-bg;
+    @apply bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden selection:bg-[#D4AF37] selection:text-[#0A0A0A];
   }
 }

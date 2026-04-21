@@ -1,57 +1,104 @@
 import React, { useState } from 'react';
-import { FaChevronDown } from 'react-icons/fa6';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaPlus, FaMinus } from 'react-icons/fa6';
 
 const FAQS = [
-  { 
-    q: "Quantas pessoas a casa comporta?", 
-    a: "Acomodamos confortavelmente até 10 hóspedes, distribuídos em 4 suítes amplas e climatizadas." 
+  {
+    q: 'Quantas pessoas a casa comporta?',
+    a: 'Acomodamos confortavelmente até 15 hóspedes, distribuídos em 4 suítes amplas e climatizadas.',
   },
-  { 
-    q: "A casa possui garagem?", 
-    a: "Sim, oferecemos garagem privativa e coberta para até 3 veículos com total segurança." 
+  {
+    q: 'A casa possui garagem?',
+    a: 'Sim, oferecemos garagem privativa e coberta para até 3 veículos com total segurança.',
   },
-  { 
-    q: "Animais de estimação são permitidos?", 
-    a: "Amamos pets! Animais de pequeno porte são bem-vindos, mediante aviso prévio e taxa de limpeza." 
+  {
+    q: 'Animais de estimação são permitidos?',
+    a: 'Amamos pets! Animais de pequeno porte são bem-vindos, mediante aviso prévio e taxa de limpeza.',
   },
-  { 
-    q: "Qual o horário de check-in e check-out?", 
-    a: "O horário padrão de check-in é a partir das 14h, e o check-out até as 11h. Porém, somos super flexíveis! Tudo pode ser conversado e ajustado com o anfitrião de acordo com a disponibilidade das datas." 
-  }
+  {
+    q: 'Qual o horário de check-in e check-out?',
+    a: 'O horário padrão de check-in é a partir das 14h e o check-out até as 11h. Somos super flexíveis — tudo pode ser ajustado diretamente com o anfitrião conforme disponibilidade.',
+  },
 ];
 
+const easing = [0.22, 1, 0.36, 1];
+
 const Faq = () => {
-  const [openFaq, setOpenFaq] = useState(null);
+  const [open, setOpen] = useState(null);
 
   return (
-    <section className="py-32 px-6 lg:px-12 max-w-4xl mx-auto bg-dark-bg">
-      <div className="text-center mb-16">
-        <span className="text-xs font-bold tracking-[0.3em] uppercase text-gold block mb-4">Suporte</span>
-        <h2 className="text-4xl lg:text-5xl font-serif text-white mb-6">Ficou alguma dúvida?</h2>
-        <p className="text-white/60">Tudo o que você precisa saber antes de fazer as malas.</p>
-      </div>
-      
-      <div className="space-y-2">
-        {FAQS.map((faq, idx) => (
-          <div key={idx} className="border-b border-white/10">
-            <button 
-              className="w-full py-6 flex justify-between items-center text-left focus:outline-none group"
-              onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-            >
-              <span className={`text-lg font-bold transition-colors duration-300 pr-8 ${openFaq === idx ? 'text-gold' : 'text-white group-hover:text-gold'}`}>
-                {faq.q}
-              </span>
-              <span className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${openFaq === idx ? 'bg-gold/10' : 'bg-transparent group-hover:bg-white/5'}`}>
-                <FaChevronDown className={`text-white/50 transition-transform duration-500 ${openFaq === idx ? 'rotate-180 text-gold' : ''}`} />
-              </span>
-            </button>
-            <div 
-              className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${openFaq === idx ? 'max-h-40 pb-6 opacity-100' : 'max-h-0 opacity-0'}`}
-            >
-              <p className="text-white/70 leading-relaxed font-sans pr-12">{faq.a}</p>
-            </div>
+    <section className="py-24 lg:py-32 bg-gabana-navy border-t border-gabana-border">
+      <div className="max-w-3xl mx-auto px-6 lg:px-16">
+
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.85, ease: easing }}
+        >
+          <div className="flex items-center gap-4 mb-5">
+            <div className="w-5 h-px bg-gabana-gold" />
+            <span className="text-gabana-gold text-[10px] font-sans tracking-[0.35em] uppercase">
+              Suporte
+            </span>
           </div>
-        ))}
+          <h2
+            className="font-serif text-gabana-cream"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+          >
+            Ficou alguma dúvida?
+          </h2>
+        </motion.div>
+
+        <div>
+          {FAQS.map((faq, idx) => (
+            <motion.div
+              key={idx}
+              className="border-b border-gabana-border"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: idx * 0.08, ease: easing }}
+            >
+              <button
+                className="w-full py-7 flex justify-between items-center text-left group focus:outline-none"
+                onClick={() => setOpen(open === idx ? null : idx)}
+              >
+                <span
+                  className={`font-serif text-xl pr-8 transition-colors duration-300 ${
+                    open === idx ? 'text-gabana-gold' : 'text-gabana-cream group-hover:text-gabana-gold'
+                  }`}
+                >
+                  {faq.q}
+                </span>
+                <span
+                  className={`flex-shrink-0 transition-colors duration-300 text-xs ${
+                    open === idx ? 'text-gabana-gold' : 'text-gabana-muted'
+                  }`}
+                >
+                  {open === idx ? <FaMinus /> : <FaPlus />}
+                </span>
+              </button>
+
+              <AnimatePresence initial={false}>
+                {open === idx && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: easing }}
+                    className="overflow-hidden"
+                  >
+                    <p className="pb-7 text-gabana-muted font-sans text-sm leading-relaxed pr-10">
+                      {faq.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

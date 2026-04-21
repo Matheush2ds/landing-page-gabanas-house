@@ -1,109 +1,135 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FaGoogle, FaWhatsapp, FaGift, FaCircleExclamation } from 'react-icons/fa6';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaGoogle, FaWhatsapp, FaTicket, FaArrowRight } from 'react-icons/fa6';
 import confetti from 'canvas-confetti';
+
+const GOOGLE_LINK = 'https://g.page/r/Cci94VmYDpB8EBE/review';
+const WA_NUMBER = '5564992415277';
 
 const Promo = () => {
   const [step, setStep] = useState(1);
-  const googleLink = "https://g.page/r/Cci94VmYDpB8EBE/review"; 
-  const whatsappNumber = "5564992415277";
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const handleReviewClick = () => {
-    window.open(googleLink, '_blank');
+    window.open(GOOGLE_LINK, '_blank');
     setStep(2);
   };
 
   const handleGenerateVoucher = () => {
-    confetti({ 
-      particleCount: 200, 
-      spread: 90, 
-      origin: { y: 0.5 }, 
-      colors: ['#D4AF37', '#ffffff', '#8A7B66'],
-      disableForReducedMotion: true
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ['#C9A84C', '#FFFFFF', '#001429'],
+      disableForReducedMotion: true,
     });
     setStep(3);
   };
 
   return (
-    <div className="bg-[#0A0A0A] min-h-screen flex items-center justify-center relative overflow-hidden py-32 px-6">
+    <div className="bg-[#000E1D] min-h-screen flex items-center justify-center relative overflow-hidden py-32 px-6">
       <Helmet>
-        <title>Resgatar Prêmio | Gabana's House</title>
+        <title>Benefício Exclusivo | Gabana's House</title>
         <meta name="robots" content="noindex" />
       </Helmet>
 
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[150px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-[#D4AF37]/5 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gabana-gold/10 via-transparent to-transparent opacity-50" />
 
-      <div className="max-w-lg w-full text-center relative z-10">
-        
-        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#1A1A1A] border border-[#333] mb-8 shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-          <FaGift className="text-4xl text-[#D4AF37]" />
-        </div>
+      <div className="max-w-lg w-full relative z-10">
+        <AnimatePresence mode="wait">
 
-        {step === 1 && (
-          <div className="transition-all duration-700 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">Um presente<br/>para você.</h2>
-            <p className="text-[#A39D98] text-lg mb-10 leading-relaxed">Avalie sua estadia no Google e desbloqueie <strong className="text-white font-normal">10% OFF</strong> na sua próxima reserva conosco.</p>
-            
-            <button 
-              onClick={handleReviewClick} 
-              className="w-full flex items-center justify-center gap-4 bg-white text-[#1A1A1A] px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-[#F0F0F0] transition-colors shadow-xl"
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-gabana-bg border border-white/10 p-12 lg:p-16 text-center relative"
             >
-              <FaGoogle className="text-xl text-[#4285F4]" /> Avaliar no Google
-            </button>
-            <p className="text-xs text-[#5C5C5C] font-bold uppercase tracking-widest mt-8">Leva menos de 1 minuto</p>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="transition-all duration-700 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">Obrigado!</h2>
-            <p className="text-[#A39D98] text-lg mb-10 leading-relaxed">Sua opinião é fundamental. Clique abaixo para emitir o seu voucher exclusivo.</p>
-            
-            <button 
-              onClick={handleGenerateVoucher} 
-              className="w-full bg-[#D4AF37] text-[#1A1A1A] px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-[#b5952f] transition-all shadow-[0_0_40px_rgba(212,175,55,0.3)] hover:shadow-[0_0_60px_rgba(212,175,55,0.5)]"
-            >
-              Emitir meu Voucher
-            </button>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div className="transition-all duration-700 animate-fade-in">
-            <h2 className="text-3xl font-serif text-[#D4AF37] mb-4">Parabéns!</h2>
-            <p className="text-[#A39D98] mb-10">O seu desconto foi ativado.</p>
-
-            <div className="bg-[#141414] border border-[#2C2C2C] p-10 relative overflow-hidden shadow-2xl mb-10 group hover:border-[#D4AF37]/50 transition-colors duration-500">
-              <div className="absolute inset-0 border-2 border-dashed border-[#D4AF37]/20 m-2 pointer-events-none"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gabana-gold" />
               
-              <span className="block text-[10px] text-[#8A7B66] uppercase tracking-[0.3em] mb-4 font-bold relative z-10">Código Exclusivo</span>
-              <strong className="text-5xl md:text-6xl font-serif text-white tracking-wider block mb-4 relative z-10 drop-shadow-lg">GABANA10</strong>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] relative z-10">Válido até {new Date().getFullYear() + 1}</span>
-            </div>
+              <FaTicket className="text-5xl text-gabana-gold mx-auto mb-10 opacity-80" />
+              
+              <h2 className="font-serif text-white text-4xl lg:text-5xl leading-tight mb-6">
+                Um convite <br /><span className="italic text-gabana-gold">para voltar.</span>
+              </h2>
+              <p className="text-gabana-cream/70 text-lg mb-12 font-sans leading-relaxed">
+                Compartilhe sua experiência no Google e libere <span className="text-white font-medium">10% de desconto</span> em sua próxima estadia.
+              </p>
 
-            <div className="text-left bg-[#111] border border-[#222] p-8 mb-10">
-              <strong className="text-white flex items-center gap-3 mb-4 text-sm uppercase tracking-widest">
-                <FaCircleExclamation className="text-[#D4AF37] text-lg" /> Regras de Uso
-              </strong>
-              <ul className="space-y-3 text-sm text-[#A39D98] leading-relaxed">
-                <li className="flex gap-3"><span className="text-[#D4AF37]">•</span> Válido por 1 ano a partir da emissão.</li>
-                <li className="flex gap-3"><span className="text-[#D4AF37]">•</span> Uso único (1 vez) por CPF/Hóspede.</li>
-                <li className="flex gap-3"><span className="text-[#D4AF37]">•</span> Válido apenas para reservas diretas via WhatsApp (não aplicável em plataformas).</li>
-              </ul>
-            </div>
+              <button
+                onClick={handleReviewClick}
+                className="w-full flex items-center justify-center gap-4 bg-white text-[#001429] px-8 py-5 text-xs font-sans font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors duration-300"
+              >
+                <FaGoogle className="text-lg" />
+                Avaliar no Google
+              </button>
+            </motion.div>
+          )}
 
-            <a 
-              href={`https://wa.me/${whatsappNumber}?text=Ol%C3%A1!%20Acabei%20de%20avaliar%20no%20Google%20e%20ganhei%20o%20cupom%20GABANA10%20para%20minha%20pr%C3%B3xima%20reserva%20direta.`}
-              target="_blank" rel="noreferrer"
-              className="w-full flex items-center justify-center gap-4 bg-[#25D366] text-white px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-[#1DA851] transition-colors shadow-lg"
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-gabana-bg border border-white/10 p-12 lg:p-16 text-center relative"
             >
-              <FaWhatsapp className="text-2xl" /> Validar com Anfitrião
-            </a>
-          </div>
-        )}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gabana-gold" />
+
+              <h2 className="font-serif text-white text-4xl lg:text-5xl leading-tight mb-6">
+                Nosso muito <br /><span className="italic text-gabana-gold">obrigado.</span>
+              </h2>
+              <p className="text-gabana-cream/70 text-lg mb-12 font-sans leading-relaxed">
+                Sua avaliação nos ajuda a evoluir. Seu voucher está pronto para ser emitido.
+              </p>
+
+              <button
+                onClick={handleGenerateVoucher}
+                className="w-full flex items-center justify-center gap-4 bg-gabana-gold text-[#001429] px-8 py-5 text-xs font-sans font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors duration-500"
+              >
+                Resgatar Benefício <FaArrowRight />
+              </button>
+            </motion.div>
+          )}
+
+          {step === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-gabana-gold p-1 relative overflow-hidden"
+            >
+              <div className="bg-[#000E1D] p-10 lg:p-16 text-center border border-gabana-gold/20">
+                <p className="text-gabana-gold text-[10px] font-sans tracking-[0.4em] uppercase mb-4">Acesso Vip</p>
+                <h2 className="font-serif text-white text-6xl tracking-widest mb-2">GABANA10</h2>
+                <div className="w-16 h-[1px] bg-gabana-gold/30 mx-auto my-8" />
+                
+                <ul className="text-left text-gabana-cream/70 text-sm font-sans space-y-4 mb-10">
+                  <li className="flex gap-3"><span className="text-gabana-gold">✦</span> Válido por 1 ano a partir de hoje.</li>
+                  <li className="flex gap-3"><span className="text-gabana-gold">✦</span> Uso único por CPF cadastrado.</li>
+                  <li className="flex gap-3"><span className="text-gabana-gold">✦</span> Exclusivo para reservas via WhatsApp.</li>
+                </ul>
+
+                <a
+                  href={`https://wa.me/${WA_NUMBER}?text=Ol%C3%A1!%20Acabei%20de%20avaliar%20no%20Google%20e%20ganhei%20o%20cupom%20GABANA10%20para%20minha%20pr%C3%B3xima%20reserva%20direta.`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full flex items-center justify-center gap-4 bg-[#25D366] text-[#001429] px-8 py-5 text-xs font-sans font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors duration-300"
+                >
+                  <FaWhatsapp className="text-lg" />
+                  Validar Cupom
+                </a>
+              </div>
+            </motion.div>
+          )}
+
+        </AnimatePresence>
       </div>
     </div>
   );

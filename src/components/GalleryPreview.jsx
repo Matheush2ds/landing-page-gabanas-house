@@ -1,80 +1,155 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa6';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+
+const IMAGES = [
+  { src: '/img/Piscina.png', label: 'Oásis Particular', sub: 'Piscina Climatizada' },
+  { src: '/img/Sala.png', label: 'Integração Total', sub: 'Living & Convivência' },
+  { src: '/img/Churrasqueira.png', label: 'Espaço Gourmet', sub: 'Momentos Únicos' },
+  { src: '/img/Suite.png', label: 'Descanso Absoluto', sub: 'Suíte Master' },
+];
+
+const Card = ({ src, label, sub, i, progress, range, targetScale }) => {
+  const containerRef = useRef(null);
+  
+  // A mágica 4D de profundidade: diminui e escurece quando o próximo cartão sobe
+  const scale = useTransform(progress, range, [1, targetScale]);
+  const filterOpacity = useTransform(progress, range, [0, 0.5]);
+
+  // Efeito Tilt Magnético
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x, { stiffness: 100, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 100, damping: 20 });
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["6deg", "-6deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-6deg", "6deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0); y.set(0);
+  };
+
+  return (
+    <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0">
+      <motion.div
+        style={{ 
+          scale, 
+          top: `calc(-5vh + ${i * 35}px)` // Cria o degrau de empilhamento
+        }}
+        className="relative flex flex-col w-[92vw] lg:w-[75vw] h-[75vh] lg:h-[85vh] origin-top"
+      >
+        <motion.div
+          className="w-full h-full relative rounded-t-[2rem] lg:rounded-[2.5rem] overflow-hidden group shadow-[0_-20px_50px_rgba(0,0,0,0.2)]"
+          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          <img 
+            src={src} 
+            alt={label} 
+            className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[2s] ease-out" 
+          />
+          
+          {/* Overlay dinâmico: escurece ao ser empurrado para o fundo */}
+          <motion.div className="absolute inset-0 bg-[#000E1D]" style={{ opacity: filterOpacity }} />
+          
+          <div className="absolute inset-0 bg-gradient-to-t from-[#000E1D] via-[#000E1D]/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+          
+          {/* Textos flutuantes em 3D */}
+          <div 
+            className="absolute bottom-12 left-8 lg:bottom-16 lg:left-16 pointer-events-none" 
+            style={{ transform: "translateZ(80px)" }}
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-px bg-[#C9A84C]" />
+              <p className="text-[#C9A84C] text-[10px] lg:text-xs font-sans tracking-[0.4em] uppercase font-bold drop-shadow-md">
+                {sub}
+              </p>
+            </div>
+            <h3 className="text-[#F6F4F0] font-serif text-5xl lg:text-[5.5rem] tracking-tight drop-shadow-2xl leading-none">
+              {label}
+            </h3>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
 
 const GalleryPreview = () => {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end']
+  });
+
   return (
-    <section className="py-24 px-6 lg:px-12 xl:px-24 max-w-[1600px] mx-auto bg-dark-bg">
+    <section ref={container} className="relative bg-[#F6F4F0] z-10 pt-32 lg:pt-48 pb-[10vh]">
       
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
-        <div>
-          <span className="text-xs font-bold tracking-[0.3em] uppercase text-gold block mb-3">
-            Design & Conforto
-          </span>
-          <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">
-            Um vislumbre da <br/><span className="italic text-white/60">sua estadia.</span>
+      {/* Cabeçalho Fixo no fundo enquanto os cartões sobem */}
+      <div className="max-w-[100rem] mx-auto px-6 lg:px-16 mb-20 flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10 sticky top-10 lg:top-20 z-0">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="flex items-center gap-6 mb-6">
+            <div className="w-12 h-px bg-[#001429]" />
+            <span className="text-[#001429] text-xs font-sans tracking-[0.4em] uppercase font-bold">
+              Imersão Visual
+            </span>
+          </div>
+          <h2 className="font-serif text-[#001429] leading-[0.9] tracking-tighter" style={{ fontSize: 'clamp(4rem, 9vw, 8rem)' }}>
+            Sinta a <br />
+            <span className="italic text-[#C9A84C]">atmosfera.</span>
           </h2>
-        </div>
-        
-        <Link to="/galeria" className="hidden md:flex items-center gap-3 bg-dark-surface border border-white/10 hover:border-gold/50 text-white px-8 py-4 text-xs font-bold uppercase tracking-widest transition-all duration-300 rounded-lg shadow-lg group">
-          Ver galeria completa
-          <FaArrowRight className="text-gold group-hover:translate-x-1 transition-transform" />
-        </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="pb-4"
+        >
+          <Link
+            to="/galeria"
+            className="group flex items-center gap-6 text-[#001429] hover:text-[#C9A84C] transition-colors duration-500"
+          >
+            <span className="text-[11px] font-sans tracking-[0.3em] uppercase font-bold">Ver Galeria Completa</span>
+            <div className="w-12 h-px bg-[#001429] group-hover:bg-[#C9A84C] group-hover:w-24 transition-all duration-700 ease-out" />
+          </Link>
+        </motion.div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-[auto_auto] md:grid-rows-2 gap-3 md:gap-4 md:h-[70vh] min-h-[500px]">
-        
-        <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group relative aspect-[4/3] md:aspect-auto shadow-2xl">
-          <img src="/img/Piscina.png" alt="Piscina de Dia" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+      <div className="relative mt-20 lg:mt-32">
+        {IMAGES.map((img, i) => {
+          // Calcula o quanto o cartão atual vai diminuir quando o próximo subir
+          const targetScale = 1 - ((IMAGES.length - i) * 0.04);
+          const range = [i * 0.25, 1];
           
-          <div className="absolute bottom-0 left-0 p-6 md:p-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
-            <p className="text-gold text-xs font-bold uppercase tracking-widest mb-2">Área Externa</p>
-            <h3 className="text-2xl md:text-3xl font-serif text-white">Piscina Climatizada</h3>
-          </div>
-        </div>
-
-        <div className="col-span-1 row-span-1 rounded-xl md:rounded-2xl overflow-hidden group relative aspect-square md:aspect-auto shadow-lg">
-          <img src="/img/Churrasqueira.png" alt="Área Gourmet" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
-          <div className="absolute bottom-0 left-0 p-4 md:p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            <p className="text-white text-sm md:text-base font-bold tracking-wide">Área Gourmet</p>
-          </div>
-        </div>
-
-        <div className="col-span-1 row-span-1 rounded-xl md:rounded-2xl overflow-hidden group relative aspect-square md:aspect-auto shadow-lg">
-          <img src="/img/Sala.png" alt="Sala de Estar" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
-          <div className="absolute bottom-0 left-0 p-4 md:p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            <p className="text-white text-sm md:text-base font-bold tracking-wide">Sala Integrada</p>
-          </div>
-        </div>
-
-        <div className="hidden md:block col-span-1 row-span-1 rounded-2xl overflow-hidden group relative shadow-lg">
-          <img src="/img/Suite.png" alt="Suítes" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
-          <div className="absolute bottom-0 left-0 p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            <p className="text-white text-base font-bold tracking-wide">Suítes Premium</p>
-          </div>
-        </div>
-
-        <div className="hidden md:block col-span-1 row-span-1 rounded-2xl overflow-hidden group relative shadow-lg">
-          <img src="/img/fachada.png" alt="Fachada" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
-          <div className="absolute bottom-0 left-0 p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            <p className="text-white text-base font-bold tracking-wide">Arquitetura</p>
-          </div>
-        </div>
+          return (
+            <Card 
+              key={i} 
+              i={i} 
+              {...img} 
+              progress={scrollYProgress} 
+              range={range} 
+              targetScale={targetScale} 
+            />
+          );
+        })}
       </div>
-
-      {/* Botão Mobile */}
-      <div className="mt-8 flex md:hidden justify-center w-full">
-        <Link to="/galeria" className="w-full flex items-center justify-center gap-3 bg-dark-surface border border-white/10 hover:border-gold/50 text-white px-8 py-5 text-xs font-bold uppercase tracking-widest transition-all duration-300 rounded-lg shadow-lg group">
-          Ver galeria completa
-          <FaArrowRight className="text-gold group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
-
     </section>
   );
 };

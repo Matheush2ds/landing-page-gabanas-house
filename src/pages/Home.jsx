@@ -11,10 +11,13 @@ import FinalCta from '../components/FinalCta';
 
 const Home = () => {
   return (
-    <div className="bg-dark-bg text-white font-sans overflow-x-hidden selection:bg-gold selection:text-dark-bg">
+    <div>
       <Helmet>
         <title>Gabana's House | Casa de Temporada em Caldas Novas</title>
-        <meta name="description" content="Hospedagem premium em Caldas Novas. Casa inteira com piscina aquecida, área gourmet e conforto absoluto para até 10 pessoas." />
+        <meta
+          name="description"
+          content="Hospedagem premium em Caldas Novas. Casa inteira com piscina aquecida, área gourmet e conforto absoluto para até 15 pessoas."
+        />
       </Helmet>
 
       <Hero />
@@ -24,7 +27,6 @@ const Home = () => {
       <ReviewsSection />
       <Faq />
       <FinalCta />
-      
     </div>
   );
 };

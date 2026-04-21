@@ -7,6 +7,21 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden selection:bg-[#D4AF37] selection:text-[#0A0A0A];
+    background-color: #001429;
+    color: #F0EBE3;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background-color: #C9A84C;
+    color: #001429;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

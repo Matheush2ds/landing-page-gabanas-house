@@ -8,29 +8,49 @@ export default {
     extend: {
       colors: {
         gabana: {
-          bg: '#0A0A0A',
-          card: '#141414',
-          gold: '#D4AF37',
-          'gold-hover': '#b5952f',
-          light: '#F9F8F6',
-          muted: '#A39D98',
-          dark: '#1A1A1A',
-          border: '#2C2C2C'
-        }
+          bg: '#001429',
+          navy: '#002344',
+          card: '#001E3C',
+          gold: '#C9A84C',
+          'gold-light': '#E8C96E',
+          cream: '#F0EBE3',
+          muted: '#7A8FA6',
+          border: '#0F3258',
+        },
+        brand: {
+          whatsapp: '#25D366',
+        },
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif'], // Exemplo, certifique-se de importar a fonte
-        sans: ['Inter', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'serif'],
+        sans: ['DM Sans', 'sans-serif'],
+      },
+      transitionDuration: {
+        400: '400ms',
+        600: '600ms',
+        800: '800ms',
+        900: '900ms',
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        'fade-in': 'fadeIn 1s ease-out forwards',
+        'scroll-flow': 'scrollFlow 2.5s ease-in-out infinite',
       },
       keyframes: {
         fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        }
-      }
+          from: { opacity: '0', transform: 'translateY(30px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeIn: {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        scrollFlow: {
+          '0%, 100%': { transform: 'scaleY(0) translateY(0)', transformOrigin: 'top', opacity: '0' },
+          '30%': { opacity: '1' },
+          '70%': { transform: 'scaleY(1) translateY(0)', transformOrigin: 'top', opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],

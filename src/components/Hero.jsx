@@ -1,162 +1,113 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-
-const STATS = [
-  { num: '01', label: 'Capacidade', value: 'Até 15 hóspedes' },
-  { num: '02', label: 'Acomodação', value: '4 suítes privativas' },
-  { num: '03', label: 'Lazer', value: 'Piscina climatizada' },
-  { num: '04', label: 'Localização', value: 'Centro turístico' },
-];
-
-const WA_LINK = "https://wa.me/5564992415277?text=Ol%C3%A1%2C%20gostaria%20de%20verificar%20a%20disponibilidade%20da%20casa!";
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { FaWhatsapp } from 'react-icons/fa6';
+import { HERO_STATS, LINKS, SITE } from '../data/site';
+import { EASE } from '../lib/motion';
+import LiquidButton from './LiquidButton';
 
 const Hero = () => {
-  const heroRef = useRef(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+
   const { scrollYProgress } = useScroll({
-    target: heroRef,
+    target: ref,
     offset: ['start start', 'end start'],
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '18%']);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '12%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, reduce ? 1 : 0]);
 
   return (
     <section
-      ref={heroRef}
-      className="relative w-full min-h-[100svh] flex flex-col justify-end overflow-hidden bg-gabana-bg"
+      ref={ref}
+      aria-label="Apresentação"
+      className="relative flex min-h-[100svh] w-full flex-col justify-end overflow-hidden bg-gabana-deep"
     >
-      <motion.div
-        className="absolute inset-0 scale-105 origin-top"
-        style={{ y: bgY }}
-      >
+      <motion.div className="absolute inset-0 origin-top scale-105" style={{ y: bgY }}>
         <img
-          src="/img/Piscina1.png"
-          alt="Piscina da Gabana's House"
-          className="w-full h-full object-cover"
-          fetchpriority="high"
+          src="/img/piscina-noite.webp"
+          alt="Piscina climatizada da Gabana’s House iluminada ao anoitecer"
+          width="1195"
+          height="587"
+          className="h-full w-full object-cover"
+          fetchPriority="high"
+          decoding="async"
         />
       </motion.div>
 
-      <div className="absolute inset-0 bg-gabana-bg/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-gabana-bg via-gabana-bg/60 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-gabana-bg/90 via-gabana-bg/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-gabana-deep via-gabana-deep/55 to-gabana-deep/15" />
+      <div className="absolute inset-0 bg-linear-to-r from-gabana-deep/90 via-gabana-deep/30 to-transparent" />
 
       <motion.div
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-16 pt-32 pb-40 lg:pb-56"
+        className="relative z-10 mx-auto w-full max-w-[92rem] px-6 pb-16 pt-36 lg:px-14 lg:pb-24"
         style={{ opacity: contentOpacity, y: contentY }}
       >
-        <motion.div
-          className="flex items-center gap-4 mb-8"
-          initial={{ opacity: 0, x: -20 }}
+        <motion.p
+          className="eyebrow mb-7 flex items-center gap-4 text-gabana-gold"
+          initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
         >
-          <div className="w-8 h-px bg-gabana-gold" />
-          <span className="text-gabana-gold text-[10px] sm:text-xs font-sans tracking-[0.35em] uppercase">
-            Refúgio Particular
-          </span>
-        </motion.div>
+          <span className="rule-x w-10" aria-hidden />
+          Caldas Novas · Goiás
+        </motion.p>
 
         <motion.h1
-          className="font-serif text-gabana-cream leading-[1.05] tracking-tight mb-10"
-          style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)' }}
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-9 max-w-[16ch] font-serif font-light leading-[0.98] tracking-[-0.02em] text-gabana-cream"
+          style={{ fontSize: 'clamp(3rem, 7.6vw, 6.2rem)' }}
+          initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, delay: 0.25, ease: EASE }}
         >
-          Sua casa <br className="hidden lg:block" />
-          <span className="italic text-gabana-gold pr-2">feita</span> para <br className="hidden lg:block" />
-          memórias.
+          A casa inteira <span className="italic text-gabana-gold">é sua</span> pelos dias que ficar.
         </motion.h1>
 
         <motion.div
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-8 lg:gap-10"
-          initial={{ opacity: 0, y: 20 }}
+          className="flex flex-col items-start gap-8 sm:flex-row sm:items-center lg:gap-12"
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.9, delay: 0.42, ease: EASE }}
         >
-          <a
-            href={WA_LINK}
+          <LiquidButton
+            href={LINKS.whatsappDates}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center px-10 py-5 text-[11px] font-sans tracking-[0.3em] uppercase transition-colors duration-500 bg-gabana-gold text-gabana-bg hover:bg-white"
+            size="lg"
+            icon={FaWhatsapp}
+            className="w-full sm:w-auto"
           >
-            Verificar Disponibilidade
-          </a>
-          <p className="text-gabana-cream/80 font-sans text-sm lg:text-base leading-relaxed max-w-sm sm:border-l sm:border-gabana-gold/30 sm:pl-8">
-            Privacidade absoluta e lazer de alto padrão em Caldas Novas.
+            Consultar datas
+          </LiquidButton>
+
+          <p className="max-w-sm text-[0.95rem] leading-relaxed text-gabana-cream/75 sm:border-l sm:border-gabana-gold/30 sm:pl-8">
+            Três suítes, churrasqueira dentro da cozinha e piscina climatizada, a 300 m dos clubes termais.
+            Você fala direto com o anfitrião, sem taxa de plataforma.
           </p>
         </motion.div>
       </motion.div>
 
-      <div className="absolute bottom-0 left-0 w-full z-20 pb-8 lg:pb-12">
-        <div className="max-w-7xl mx-auto px-6 lg:px-16">
-          <div className="flex flex-col lg:flex-row items-stretch justify-between gap-6 lg:gap-0 relative">
-            
-            <motion.div
-              className="hidden lg:block absolute top-0 left-0 h-px bg-gabana-gold/20 origin-left"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.5, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ width: '100%' }}
-            />
-
-            {STATS.map((stat, i) => (
-              <motion.div
-                key={i}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className={`group relative flex-1 pt-4 lg:pt-10 pl-6 lg:pl-10 transition-all duration-500 cursor-default ${
-                  hoveredIndex !== null && hoveredIndex !== i ? 'opacity-20 blur-[2px]' : 'opacity-100'
-                }`}
-              >
-                <motion.div
-                  className="absolute top-0 left-0 w-px bg-gabana-gold/30 origin-top"
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: 1, delay: 1 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ height: '100%' }}
-                />
-                
-                <motion.span 
-                  className="absolute -top-2 lg:top-2 left-6 lg:left-10 font-serif text-gabana-gold/5 text-6xl lg:text-8xl select-none pointer-events-none transition-colors duration-500 group-hover:text-gabana-gold/15"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, delay: 1.2 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {stat.num}
-                </motion.span>
-
-                <div className="relative z-10">
-                  <div className="overflow-hidden mb-2 lg:mb-3">
-                    <motion.p
-                      initial={{ y: '100%' }}
-                      animate={{ y: 0 }}
-                      transition={{ duration: 0.6, delay: 1.3 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                      className="text-gabana-gold text-[9px] sm:text-[10px] font-sans tracking-[0.4em] uppercase"
-                    >
-                      {stat.label}
-                    </motion.p>
-                  </div>
-                  
-                  <div className="overflow-hidden">
-                    <motion.p
-                      initial={{ y: '100%' }}
-                      animate={{ y: 0 }}
-                      transition={{ duration: 0.6, delay: 1.4 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                      className="text-gabana-cream font-serif text-xl lg:text-2xl tracking-wide group-hover:translate-x-2 transition-transform duration-500"
-                    >
-                      {stat.value}
-                    </motion.p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+      {/* Ficha técnica em linha — hairline, não card */}
+      <motion.dl
+        className="relative z-10 mx-auto grid w-full max-w-[92rem] grid-cols-2 border-t border-gabana-cream/12 px-6 lg:grid-cols-4 lg:px-14"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.7, ease: EASE }}
+      >
+        {HERO_STATS.map(({ label, value }, i) => (
+          <div
+            key={label}
+            className={`py-6 lg:py-8 ${i > 0 ? 'lg:border-l lg:border-gabana-cream/12 lg:pl-8' : ''} ${
+              i % 2 === 1 ? 'border-l border-gabana-cream/12 pl-6 lg:pl-8' : ''
+            }`}
+          >
+            <dt className="eyebrow mb-2 text-gabana-gold/80">{label}</dt>
+            <dd className="font-serif text-lg font-light text-gabana-cream lg:text-xl">{value}</dd>
           </div>
-        </div>
-      </div>
+        ))}
+      </motion.dl>
+
+      <span className="sr-only">{SITE.name} em Caldas Novas, Goiás.</span>
     </section>
   );
 };

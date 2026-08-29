@@ -1,116 +1,94 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaLocationDot, FaUmbrellaBeach, FaLandmark } from 'react-icons/fa6';
-import { MdLocalGroceryStore } from 'react-icons/md';
+import { useState } from 'react';
+import { motion } from 'motion/react';
+import { FaLocationDot, FaMap, FaArrowUpRightFromSquare } from 'react-icons/fa6';
+import { SITE } from '../data/site';
+import { readPrefs } from '../lib/prefs';
+import { EASE } from '../lib/motion';
 
-const HIGHLIGHTS = [
-  {
-    icon: <FaUmbrellaBeach />,
-    title: 'Clubes Termais',
-    desc: 'Apenas 300m do Tropical Thermas. Esqueça o carro na garagem e vá a pé.',
-  },
-  {
-    icon: <FaLandmark />,
-    title: 'Centro Histórico',
-    desc: 'Vizinha ao Casarão de Caldas Novas, uma das áreas mais seguras e valorizadas da cidade.',
-  },
-  {
-    icon: <MdLocalGroceryStore />,
-    title: 'Conveniência Total',
-    desc: 'Mercados, padarias e pista de cooper a poucos passos da porta.',
-  },
-];
+const { address } = SITE;
 
-const easing = [0.22, 1, 0.36, 1];
-const MAP_QUERY = '793G+6G Caldas Novas, Goiás';
+/**
+ * O pin só aparece quando a busca resolve para um ponto exato. Endereço e
+ * plus code o Google às vezes interpreta como região e devolve o mapa sem
+ * marcador — por isso a consulta vai em coordenada, que sempre crava o pin.
+ */
+const point = `${address.lat},${address.lng}`;
+const embedSrc = `https://maps.google.com/maps?q=${point}&hl=pt-BR&t=m&z=17&output=embed`;
+const externalSrc = `https://www.google.com/maps/search/?api=1&query=${point}`;
 
 const Location = () => {
+  // O embed do Google grava cookies. Sem consentimento, ele só entra a pedido.
+  const [loaded, setLoaded] = useState(() => readPrefs()?.analytics === true);
+
   return (
-    <section className="py-24 lg:py-36 bg-gabana-bg">
-      <div className="max-w-7xl mx-auto px-6 lg:px-16">
-        <div className="flex flex-col-reverse lg:flex-row items-start gap-16 lg:gap-20">
+    <section aria-labelledby="mapa-titulo" className="bg-gabana-bg pb-24 lg:pb-36">
+      <div className="mx-auto max-w-[92rem] px-6 lg:px-14">
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.95, ease: EASE }}
+        >
+          <h2 id="mapa-titulo" className="sr-only">
+            Localização no mapa
+          </h2>
 
-          <motion.div
-            className="w-full lg:w-1/2"
-            initial={{ opacity: 0, x: -35 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.95, ease: easing }}
-          >
-            <div className="relative">
-              <div className="absolute -bottom-3 -right-3 w-full h-full border border-gabana-gold/20 pointer-events-none" />
+          <span
+            className="pointer-events-none absolute -bottom-3 -right-3 hidden h-full w-full border border-gabana-gold/25 lg:block"
+            aria-hidden
+          />
 
-              <div className="relative h-[420px] lg:h-[480px] overflow-hidden bg-gabana-card">
-                <iframe
-                  className="w-full h-full grayscale-[65%] contrast-[1.1] opacity-80"
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&t=m&z=16&output=embed`}
-                  loading="lazy"
-                  title="Localização Gabana's House"
-                />
-
-                <div className="absolute bottom-0 left-0 right-0 bg-gabana-bg/92 backdrop-blur-sm border-t border-gabana-border px-6 py-4 flex items-center gap-4">
-                  <FaLocationDot className="text-gabana-gold text-xl flex-shrink-0" />
-                  <div>
-                    <p className="text-gabana-cream text-sm font-sans font-medium leading-tight">
-                      Rua 7 - Av. A, Qd 04 Lt 27
-                    </p>
-                    <p className="text-gabana-muted text-[11px] font-sans mt-0.5">
-                      Itaguai 1, Caldas Novas - GO
-                    </p>
-                  </div>
+          <div className="relative h-[380px] overflow-hidden bg-gabana-card lg:h-[520px]">
+            {loaded ? (
+              <iframe
+                className="h-full w-full opacity-90 grayscale-[30%] contrast-[1.05]"
+                src={embedSrc}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Mapa com a localização da Gabana’s House em Caldas Novas"
+              />
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center gap-6 px-8 text-center">
+                <FaMap aria-hidden className="text-3xl text-gabana-gold/60" />
+                <p className="max-w-sm text-sm leading-relaxed text-gabana-muted">
+                  O mapa é carregado do Google e grava cookies no seu navegador.
+                  Ele só aparece se você quiser.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setLoaded(true)}
+                    className="eyebrow rounded-full bg-[linear-gradient(160deg,var(--color-gabana-gold-soft),var(--color-gabana-gold)_46%,#a8873f)] px-7 py-3.5 text-gabana-deep shadow-[0_1px_0_rgba(255,255,255,.5)_inset,0_-2px_6px_rgba(80,58,12,.3)_inset,0_8px_20px_-8px_rgba(201,168,76,.5)] transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    Carregar o mapa
+                  </button>
+                  <a
+                    href={externalSrc}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="eyebrow flex items-center gap-3 rounded-full bg-white/[0.06] px-7 py-3.5 text-gabana-cream ring-1 ring-white/15 backdrop-blur-md transition-colors duration-300 hover:ring-gabana-gold/40"
+                  >
+                    Abrir no Google Maps
+                    <FaArrowUpRightFromSquare aria-hidden className="text-[0.65rem]" />
+                  </a>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            )}
 
-          <motion.div
-            className="w-full lg:w-1/2"
-            initial={{ opacity: 0, x: 35 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.95, ease: easing }}
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-5 h-px bg-gabana-gold" />
-              <span className="text-gabana-gold text-[10px] font-sans tracking-[0.35em] uppercase">
-                Localização
-              </span>
-            </div>
-
-            <h2
-              className="font-serif text-gabana-cream mb-14 leading-tight"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}
-            >
-              Perto de tudo.<br />
-              <span className="italic text-gabana-muted">Longe do barulho.</span>
-            </h2>
-
-            <div className="space-y-10">
-              {HIGHLIGHTS.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  className="flex gap-5 items-start group"
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.55, delay: 0.2 + idx * 0.1, ease: easing }}
-                >
-                  <div className="w-9 h-9 border border-gabana-gold/30 flex items-center justify-center text-gabana-gold/60 group-hover:border-gabana-gold group-hover:text-gabana-gold transition-all duration-300 flex-shrink-0 mt-0.5 text-sm">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-serif text-gabana-cream text-xl mb-1.5 group-hover:text-gabana-gold transition-colors duration-300">
-                      {item.title}
-                    </h4>
-                    <p className="text-gabana-muted font-sans text-sm leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+            <address className="absolute inset-x-0 bottom-0 flex items-center gap-4 border-t border-gabana-border bg-gabana-deep/92 px-6 py-4 not-italic backdrop-blur-xs">
+              <FaLocationDot aria-hidden className="shrink-0 text-xl text-gabana-gold" />
+              <div>
+                <p className="text-sm font-medium leading-tight text-gabana-cream">
+                  {address.street}
+                </p>
+                <p className="mt-0.5 text-xs text-gabana-muted">
+                  {address.district}, {address.city} / {address.state}
+                </p>
+              </div>
+            </address>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

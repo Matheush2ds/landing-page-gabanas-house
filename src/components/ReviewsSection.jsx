@@ -1,151 +1,114 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { FaStar } from 'react-icons/fa6';
+import { REVIEWS } from '../data/site';
+import { EASE, rise } from '../lib/motion';
 
-const FEATURED = {
-  text: 'A casa está linda, tudo novo e limpinho. A piscina climatizada é uma delícia e a localização é perfeita — perto de tudo mas com total privacidade. Voltaremos com certeza!',
-  author: 'Família Martins',
-  date: 'Janeiro 2026',
-};
-
-const REVIEWS = [
-  {
-    name: 'Marlice',
-    text: 'Espaçosa, todos os quartos com suíte. Localização excelente, perto de tudo.',
-    date: 'Dez 2025',
-  },
-  {
-    name: 'Fernando',
-    text: 'Experiência maravilhosa. O local é exatamente como descrito, muito organizado.',
-    date: 'Nov 2025',
-  },
-  {
-    name: 'Família Souza',
-    text: 'Melhor casa de temporada em Caldas Novas. Área gourmet e piscina incríveis.',
-    date: 'Out 2025',
-  },
-];
-
-const Stars = () => (
-  <div className="flex gap-1">
-    {[...Array(5)].map((_, i) => (
-      <FaStar key={i} className="text-gabana-gold text-sm" />
+const Stars = ({ label }) => (
+  <span className="flex gap-1" role="img" aria-label={label || 'Cinco de cinco estrelas'}>
+    {Array.from({ length: 5 }, (_, i) => (
+      <FaStar key={i} aria-hidden className="text-[0.7rem] text-gabana-gold" />
     ))}
-  </div>
+  </span>
 );
 
-const easing = [0.22, 1, 0.36, 1];
+const ReviewsSection = () => (
+  <section aria-labelledby="avaliacoes-titulo" className="overflow-hidden bg-gabana-bg py-24 lg:py-36">
+    <div className="mx-auto max-w-[92rem] px-6 lg:px-14">
+      <motion.div
+        className="mb-14 flex flex-col justify-between gap-8 lg:mb-20 lg:flex-row lg:items-end"
+        {...rise()}
+      >
+        <div>
+          <p className="eyebrow mb-6 flex items-center gap-4 text-gabana-gold">
+            <span className="rule-x w-10" aria-hidden />
+            Hóspedes
+          </p>
+          <h2
+            id="avaliacoes-titulo"
+            className="font-serif font-light leading-[1.04] tracking-[-0.02em] text-gabana-cream"
+            style={{ fontSize: 'clamp(2.2rem, 4.6vw, 3.8rem)' }}
+          >
+            Quem já ficou
+            <br />
+            <span className="italic text-gabana-gold">conta melhor que a gente.</span>
+          </h2>
+        </div>
 
-const ReviewsSection = () => {
-  return (
-    <section className="py-24 lg:py-36 bg-gabana-bg overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-16">
+        <div className="flex items-end gap-4 border-l border-gabana-gold/30 pl-6">
+          <span className="font-serif text-6xl font-light leading-none text-gabana-gold">
+            {REVIEWS.rating}
+          </span>
+          <div className="pb-1.5">
+            <Stars />
+            <p className="eyebrow mt-2 text-gabana-muted">
+              {REVIEWS.count} avaliações · {REVIEWS.source}
+            </p>
+          </div>
+        </div>
+      </motion.div>
 
-        <motion.div
-          className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 lg:mb-20 gap-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.85, ease: easing }}
+      <motion.figure
+        className="relative mb-14 border-y border-gabana-border py-12 lg:mb-16 lg:py-16"
+        {...rise(0.1)}
+      >
+        <span
+          className="pointer-events-none absolute -top-10 left-0 select-none font-serif leading-none text-gabana-gold/10"
+          style={{ fontSize: '15rem' }}
+          aria-hidden
         >
-          <div>
-            <div className="flex items-center gap-4 mb-5">
-              <div className="w-5 h-px bg-gabana-gold" />
-              <span className="text-gabana-gold text-[10px] font-sans tracking-[0.35em] uppercase">
-                Hóspedes
+          “
+        </span>
+
+        <blockquote className="relative">
+          <p
+            className="max-w-4xl font-serif font-light italic leading-[1.45] text-gabana-cream"
+            style={{ fontSize: 'clamp(1.3rem, 2.9vw, 2.1rem)' }}
+          >
+            {REVIEWS.featured.text}
+          </p>
+        </blockquote>
+
+        <figcaption className="mt-9 flex flex-wrap items-center gap-5">
+          <span className="rule-x w-8" aria-hidden />
+          <span>
+            <span className="eyebrow block text-gabana-cream">{REVIEWS.featured.author}</span>
+            <span className="mt-1 block text-xs text-gabana-muted">{REVIEWS.featured.date}</span>
+          </span>
+          <Stars />
+        </figcaption>
+      </motion.figure>
+
+      <ul className="grid gap-6 md:grid-cols-3 lg:gap-8">
+        {REVIEWS.list.map((rev, i) => (
+          <motion.li
+            key={rev.name}
+            className="group flex flex-col border border-gabana-border p-7 transition-colors duration-500 hover:border-gabana-gold/40 lg:p-8"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
+          >
+            <Stars />
+            <p className="my-6 grow font-serif text-lg font-light italic leading-relaxed text-gabana-cream/85">
+              {rev.text}
+            </p>
+            <div className="flex items-center justify-between border-t border-gabana-border pt-5">
+              <span
+                aria-hidden
+                className="flex h-9 w-9 items-center justify-center border border-gabana-gold/30 font-serif text-lg text-gabana-gold transition-colors duration-400 group-hover:border-gabana-gold"
+              >
+                {rev.name.charAt(0)}
+              </span>
+              <span className="text-right">
+                <span className="eyebrow block text-gabana-cream">{rev.name}</span>
+                <span className="mt-1 block text-xs text-gabana-muted">{rev.date}</span>
               </span>
             </div>
-            <h2
-              className="font-serif text-gabana-cream leading-tight"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)' }}
-            >
-              O que dizem<br />
-              <span className="italic text-gabana-muted">quem já ficou.</span>
-            </h2>
-          </div>
-
-          <div className="flex items-end gap-3">
-            <span
-              className="font-serif text-gabana-gold leading-none"
-              style={{ fontSize: '4.5rem' }}
-            >
-              4.9
-            </span>
-            <div className="pb-2">
-              <Stars />
-              <p className="text-gabana-muted text-[10px] font-sans tracking-[0.25em] uppercase mt-1.5">
-                via Booking.com
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="relative py-12 lg:py-16 border-t border-b border-gabana-border mb-14 lg:mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: easing }}
-        >
-          <span
-            className="absolute -top-4 left-0 font-serif text-gabana-gold/8 select-none pointer-events-none leading-none"
-            style={{ fontSize: '16rem' }}
-            aria-hidden="true"
-          >
-            "
-          </span>
-
-          <div className="relative">
-            <p
-              className="font-serif italic text-gabana-cream leading-relaxed max-w-4xl"
-              style={{ fontSize: 'clamp(1.35rem, 3vw, 2.15rem)' }}
-            >
-              "{FEATURED.text}"
-            </p>
-            <div className="flex items-center gap-5 mt-9">
-              <div className="w-8 h-px bg-gabana-gold/40" />
-              <div>
-                <p className="text-gabana-cream text-sm font-sans tracking-[0.18em] uppercase">
-                  {FEATURED.author}
-                </p>
-                <p className="text-gabana-muted text-xs font-sans mt-0.5">{FEATURED.date}</p>
-              </div>
-              <Stars />
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {REVIEWS.map((rev, idx) => (
-            <motion.div
-              key={idx}
-              className="group p-7 lg:p-8 border border-gabana-border hover:border-gabana-gold/30 transition-all duration-500"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: easing }}
-            >
-              <Stars />
-              <p className="font-serif italic text-gabana-cream/80 text-lg leading-relaxed my-6">
-                "{rev.text}"
-              </p>
-              <div className="flex items-center justify-between pt-5 border-t border-gabana-border">
-                <div className="w-9 h-9 border border-gabana-gold/30 flex items-center justify-center text-gabana-gold font-serif text-lg group-hover:border-gabana-gold transition-colors duration-300">
-                  {rev.name.charAt(0)}
-                </div>
-                <div className="text-right">
-                  <p className="text-gabana-cream text-[11px] font-sans tracking-[0.18em] uppercase">
-                    {rev.name}
-                  </p>
-                  <p className="text-gabana-muted text-[11px] font-sans mt-0.5">{rev.date}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+          </motion.li>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
 
 export default ReviewsSection;

@@ -1,27 +1,134 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  /* Base — azul-petróleo quente, no tom da pedra das fotos */
+  --color-gabana-deep: #041520;
+  --color-gabana-bg: #072130;
+  --color-gabana-navy: #0b2c3c;
+  --color-gabana-card: #0d3346;
+  --color-gabana-border: #17425a;
+
+  /* Acentos — champanhe no escuro, bronze no claro */
+  --color-gabana-gold: #c8ac74;
+  --color-gabana-gold-soft: #e0cba4;
+  --color-gabana-bronze: #7d6230;
+  --color-gabana-cream: #f0e9dd;
+  --color-gabana-muted: #95a9b4;
+
+  /* Seção clara — areia quente, não branco-gelo */
+  --color-gabana-sand: #ece3d4;
+  --color-gabana-ink: #132a35;
+
+  --color-brand-whatsapp: #25d366;
+
+  /* Tipografia */
+  --font-serif: 'Newsreader', 'Times New Roman', serif;
+  --font-sans: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+
+  /* Ritmo */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-editorial) forwards;
+  --animate-veil: veil 1.2s var(--ease-editorial) forwards;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes veil {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
+
   body {
-    background-color: #001429;
-    color: #F0EBE3;
-    font-family: 'DM Sans', sans-serif;
+    background-color: var(--color-gabana-deep);
+    color: var(--color-gabana-cream);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
+
   ::selection {
-    background-color: #C9A84C;
-    color: #001429;
+    background-color: var(--color-gabana-gold);
+    color: var(--color-gabana-bg);
+  }
+
+  /* Foco visível e consistente — acessibilidade */
+  :focus-visible {
+    outline: 2px solid var(--color-gabana-gold);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    background-color: color-mix(in oklab, var(--color-gabana-card) 70%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+@utility rule-x {
+  display: block;
+  height: 1px;
+  background-color: color-mix(in oklab, var(--color-gabana-gold) 45%, transparent);
+}
+
+/* Lightbox no tom da marca */
+.yarl__container {
+  background-color: color-mix(in oklab, var(--color-gabana-deep) 96%, transparent);
+}
+.yarl__button {
+  color: var(--color-gabana-cream);
+  filter: none;
+}
+.yarl__button:hover {
+  color: var(--color-gabana-gold);
 }

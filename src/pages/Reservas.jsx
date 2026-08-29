@@ -1,131 +1,150 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { FaWhatsapp, FaAirbnb, FaCalendarCheck } from 'react-icons/fa6';
+import { motion } from 'motion/react';
+import { FaWhatsapp, FaAirbnb, FaCalendarCheck, FaPhone } from 'react-icons/fa6';
+import Seo from '../components/Seo';
+import PageHeader from '../components/PageHeader';
+import LiquidButton from '../components/LiquidButton';
+import { LINKS, SITE, STAY_RULES } from '../data/site';
+import { EASE } from '../lib/motion';
 
-const LINKS = {
-  whatsapp: 'https://wa.me/5564992415277?text=Gostaria%20de%20reservar!',
-  airbnb: 'https://www.airbnb.com.br/rooms/952305594473672721',
-  booking: 'https://www.booking.com/hotel/br/casa-de-aluguel-para-temporada-caldas-novas.pt-br.html',
-};
+const PARTNERS = [
+  { href: LINKS.airbnb, icon: FaAirbnb, label: 'Airbnb' },
+  { href: LINKS.booking, icon: FaCalendarCheck, label: 'Booking.com' },
+];
 
-const Reservas = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+const STEPS = [
+  {
+    title: 'Mande as datas',
+    text: 'Chegada, saída e quantas pessoas. É o suficiente para começarmos.',
+  },
+  {
+    title: 'Recebe o valor',
+    text: 'Respondemos com a diária fechada para o período, sem taxa de plataforma.',
+  },
+  {
+    title: 'Confirma a reserva',
+    text: 'Sinal via Pix e a data fica bloqueada no seu nome.',
+  },
+];
 
-  const springConfig = { damping: 25, stiffness: 150 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
+const Reservas = () => (
+  <div className="min-h-screen bg-gabana-bg px-6 pb-24 pt-32 lg:px-14 lg:pt-40">
+    <Seo
+      title="Reservas"
+      description="Reserve a Gabana’s House direto com o anfitrião pelo WhatsApp, sem taxa de plataforma. Também estamos no Airbnb e no Booking."
+      path="/reservas"
+    />
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const moveCursor = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener('mousemove', moveCursor);
-    return () => window.removeEventListener('mousemove', moveCursor);
-  }, [mouseX, mouseY]);
+    <PageHeader
+      eyebrow="Reservas"
+      title={
+        <>
+          Sem formulário.
+          <br />
+          <span className="italic text-gabana-gold">Só uma conversa.</span>
+        </>
+      }
+      lede="A agenda é nossa, o preço é nosso e quem responde é a gente. Reservar direto sai melhor que por plataforma, e dá para ajustar horário de chegada, berço e detalhes que sistema nenhum aceita."
+    />
 
-  return (
-    <div className="min-h-screen bg-[#000E1D] pt-32 pb-16 px-6 relative overflow-hidden flex flex-col justify-between">
-      <Helmet>
-        <title>Reservas | Gabana's House — Caldas Novas</title>
-        <meta name="description" content="Reserve a Gabana's House diretamente pelo WhatsApp ou nas plataformas parceiras." />
-      </Helmet>
+    <div className="mx-auto grid max-w-[92rem] gap-16 py-16 lg:grid-cols-12 lg:gap-20 lg:py-24">
+      <div className="lg:col-span-7">
+        <h2 className="eyebrow mb-8 text-gabana-muted">Como funciona</h2>
 
-      <motion.div 
-        className="fixed top-0 left-0 w-96 h-96 bg-[#C9A84C]/15 rounded-full blur-[120px] pointer-events-none z-0"
-        style={{ x: cursorX, y: cursorY, translateX: '-50%', translateY: '-50%' }}
-      />
+        <ol className="border-t border-gabana-border">
+          {STEPS.map((step, i) => (
+            <motion.li
+              key={step.title}
+              className="grid items-baseline gap-x-8 gap-y-2 border-b border-gabana-border py-7 lg:grid-cols-12"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
+            >
+              <span className="font-serif text-sm tabular-nums text-gabana-gold/70 lg:col-span-1">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="font-serif text-2xl font-light text-gabana-cream lg:col-span-4">
+                {step.title}
+              </h3>
+              <p className="text-[0.98rem] leading-relaxed text-gabana-muted lg:col-span-7">
+                {step.text}
+              </p>
+            </motion.li>
+          ))}
+        </ol>
 
-      <div className="flex-grow flex items-center justify-center relative z-10">
         <motion.div
-          className="text-center max-w-4xl mx-auto w-full"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-center"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
         >
-          <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="w-16 h-px bg-gabana-gold/50" />
-            <span className="text-gabana-gold text-[10px] sm:text-xs font-sans tracking-[0.4em] uppercase font-bold">
-              Concierge Exclusivo
-            </span>
-            <div className="w-16 h-px bg-gabana-gold/50" />
-          </div>
-
-          <h1 className="font-serif text-[#F6F4F0] leading-[0.95] tracking-tight mb-8" style={{ fontSize: 'clamp(3.5rem, 8vw, 7rem)' }}>
-            A sua estadia <br />
-            <span className="italic text-gabana-gold">começa aqui.</span>
-          </h1>
-          
-          <p className="text-[#F6F4F0]/60 font-sans text-lg lg:text-xl leading-relaxed max-w-xl mx-auto mb-16 text-balance">
-            Garanta as melhores condições, total flexibilidade e isenção de taxas falando diretamente conosco.
-          </p>
-
-          <motion.a
-            href={LINKS.whatsapp}
+          <LiquidButton
+            href={LINKS.whatsappBooking}
             target="_blank"
             rel="noreferrer"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="group relative inline-flex items-center justify-center gap-6 px-12 lg:px-20 py-6 lg:py-8 overflow-hidden bg-gabana-gold"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            size="lg"
+            icon={FaWhatsapp}
+            className="w-full sm:w-auto"
           >
-            <span className="absolute inset-0 w-full h-full bg-[#F6F4F0] -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[0.22,1,0.36,1]" />
-            <FaWhatsapp className={`relative z-10 text-3xl lg:text-4xl transition-colors duration-500 ${isHovered ? 'text-[#25D366]' : 'text-[#000E1D]'}`} />
-            <span className={`relative z-10 text-xs lg:text-sm font-sans tracking-[0.3em] uppercase font-bold transition-colors duration-500 ${isHovered ? 'text-[#000E1D]' : 'text-[#000E1D]'}`}>
-              Reservar via WhatsApp
-            </span>
-          </motion.a>
+            Começar pelo WhatsApp
+          </LiquidButton>
+
+          <a
+            href={`tel:${SITE.phoneIntl}`}
+            className="inline-flex items-center gap-3 text-sm text-gabana-muted transition-colors hover:text-gabana-cream"
+          >
+            <FaPhone aria-hidden className="text-xs" />
+            {SITE.phoneDisplay}
+          </a>
         </motion.div>
       </div>
 
-      <motion.div 
-        className="relative z-10 mt-20 border-t border-white/10 pt-8 max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
+      <motion.aside
+        className="lg:col-span-4 lg:col-start-9"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
       >
-        <span className="text-[#F6F4F0]/40 text-[10px] font-sans tracking-[0.3em] uppercase text-center md:text-left">
-          Ou reserve através de <br className="md:hidden" />nossos parceiros oficiais
-        </span>
+        <h2 className="eyebrow mb-8 text-gabana-muted">Antes de reservar</h2>
 
-        <div className="flex items-center gap-8 lg:gap-16">
-          <a
-            href={LINKS.airbnb}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-4 text-[#F6F4F0]/50 hover:text-white transition-colors duration-500"
-          >
-            <FaAirbnb className="text-2xl lg:text-3xl" />
-            <span className="text-[10px] lg:text-xs font-sans tracking-[0.2em] uppercase overflow-hidden">
-              <span className="inline-block translate-y-full group-hover:translate-y-0 transition-transform duration-300">Airbnb</span>
-              <span className="block -mt-[14px] group-hover:-translate-y-full transition-transform duration-300">Airbnb</span>
-            </span>
-          </a>
+        <dl className="border-t border-gabana-border">
+          {STAY_RULES.map((rule) => (
+            <div
+              key={rule.label}
+              className="flex items-baseline justify-between gap-6 border-b border-gabana-border py-4"
+            >
+              <dt className="eyebrow text-gabana-muted">{rule.label}</dt>
+              <dd className="text-right font-serif text-base font-light text-gabana-cream">
+                {rule.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
 
-          <div className="w-px h-8 bg-white/10" />
-
-          <a
-            href={LINKS.booking}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-4 text-[#F6F4F0]/50 hover:text-white transition-colors duration-500"
-          >
-            <FaCalendarCheck className="text-xl lg:text-2xl" />
-            <span className="text-[10px] lg:text-xs font-sans tracking-[0.2em] uppercase overflow-hidden">
-               <span className="inline-block translate-y-full group-hover:translate-y-0 transition-transform duration-300">Booking</span>
-               <span className="block -mt-[14px] group-hover:-translate-y-full transition-transform duration-300">Booking</span>
-            </span>
-          </a>
-        </div>
-      </motion.div>
+        <h2 className="eyebrow mb-5 mt-12 text-gabana-muted">Também estamos em</h2>
+        <ul className="flex flex-col gap-3">
+          {PARTNERS.map(({ href, icon: Icon, label }) => (
+            <li key={label}>
+              <LiquidButton
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                variant="glass"
+                icon={Icon}
+                full
+                className="justify-start px-7"
+              >
+                {label}
+              </LiquidButton>
+            </li>
+          ))}
+        </ul>
+      </motion.aside>
     </div>
-  );
-};
+  </div>
+);
 
 export default Reservas;

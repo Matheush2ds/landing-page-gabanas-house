@@ -1,103 +1,111 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useId, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { FaPlus, FaMinus } from 'react-icons/fa6';
+import { FAQS } from '../data/site';
+import { EASE, rise } from '../lib/motion';
 
-const FAQS = [
-  {
-    q: 'Quantas pessoas a casa comporta?',
-    a: 'Acomodamos confortavelmente até 15 hóspedes, distribuídos em 4 suítes amplas e climatizadas.',
-  },
-  {
-    q: 'A casa possui garagem?',
-    a: 'Sim, oferecemos garagem privativa e coberta para até 3 veículos com total segurança.',
-  },
-  {
-    q: 'Animais de estimação são permitidos?',
-    a: 'Amamos pets! Animais de pequeno porte são bem-vindos, mediante aviso prévio e taxa de limpeza.',
-  },
-  {
-    q: 'Qual o horário de check-in e check-out?',
-    a: 'O horário padrão de check-in é a partir das 14h e o check-out até as 11h. Somos super flexíveis — tudo pode ser ajustado diretamente com o anfitrião conforme disponibilidade.',
-  },
-];
-
-const easing = [0.22, 1, 0.36, 1];
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
 
 const Faq = () => {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(0);
+  const baseId = useId();
 
   return (
-    <section className="py-24 lg:py-32 bg-gabana-navy border-t border-gabana-border">
-      <div className="max-w-3xl mx-auto px-6 lg:px-16">
+    <section
+      aria-labelledby="faq-titulo"
+      className="border-t border-gabana-border bg-gabana-deep py-24 lg:py-32"
+    >
+      <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
 
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.85, ease: easing }}
-        >
-          <div className="flex items-center gap-4 mb-5">
-            <div className="w-5 h-px bg-gabana-gold" />
-            <span className="text-gabana-gold text-[10px] font-sans tracking-[0.35em] uppercase">
-              Suporte
-            </span>
-          </div>
+      <div className="mx-auto grid max-w-[92rem] gap-12 px-6 lg:grid-cols-12 lg:gap-20 lg:px-14">
+        <motion.div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start" {...rise()}>
+          <p className="eyebrow mb-6 flex items-center gap-4 text-gabana-gold">
+            <span className="rule-x w-10" aria-hidden />
+            Dúvidas
+          </p>
           <h2
-            className="font-serif text-gabana-cream"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+            id="faq-titulo"
+            className="font-serif font-light leading-[1.06] tracking-[-0.02em] text-gabana-cream"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
           >
-            Ficou alguma dúvida?
+            O que perguntam
+            <br />
+            <span className="italic text-gabana-gold">com mais frequência.</span>
           </h2>
         </motion.div>
 
-        <div>
-          {FAQS.map((faq, idx) => (
-            <motion.div
-              key={idx}
-              className="border-b border-gabana-border"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: idx * 0.08, ease: easing }}
-            >
-              <button
-                className="w-full py-7 flex justify-between items-center text-left group focus:outline-none"
-                onClick={() => setOpen(open === idx ? null : idx)}
-              >
-                <span
-                  className={`font-serif text-xl pr-8 transition-colors duration-300 ${
-                    open === idx ? 'text-gabana-gold' : 'text-gabana-cream group-hover:text-gabana-gold'
-                  }`}
-                >
-                  {faq.q}
-                </span>
-                <span
-                  className={`flex-shrink-0 transition-colors duration-300 text-xs ${
-                    open === idx ? 'text-gabana-gold' : 'text-gabana-muted'
-                  }`}
-                >
-                  {open === idx ? <FaMinus /> : <FaPlus />}
-                </span>
-              </button>
+        <div className="lg:col-span-7 lg:col-start-6">
+          <dl className="border-t border-gabana-border">
+            {FAQS.map((faq, i) => {
+              const isOpen = open === i;
+              const panelId = `${baseId}-panel-${i}`;
+              const buttonId = `${baseId}-button-${i}`;
 
-              <AnimatePresence initial={false}>
-                {open === idx && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: easing }}
-                    className="overflow-hidden"
-                  >
-                    <p className="pb-7 text-gabana-muted font-sans text-sm leading-relaxed pr-10">
-                      {faq.a}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+              return (
+                <motion.div
+                  key={faq.q}
+                  className="border-b border-gabana-border"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+                >
+                  <dt>
+                    <button
+                      type="button"
+                      id={buttonId}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className="group flex w-full items-center justify-between gap-8 py-6 text-left"
+                    >
+                      <span
+                        className={`font-serif text-lg font-light transition-colors duration-300 lg:text-xl ${
+                          isOpen ? 'text-gabana-gold' : 'text-gabana-cream group-hover:text-gabana-gold'
+                        }`}
+                      >
+                        {faq.q}
+                      </span>
+                      <span
+                        aria-hidden
+                        className={`shrink-0 text-[0.65rem] transition-colors duration-300 ${
+                          isOpen ? 'text-gabana-gold' : 'text-gabana-muted'
+                        }`}
+                      >
+                        {isOpen ? <FaMinus /> : <FaPlus />}
+                      </span>
+                    </button>
+                  </dt>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.dd
+                        id={panelId}
+                        aria-labelledby={buttonId}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: EASE }}
+                        className="overflow-hidden"
+                      >
+                        <p className="pb-7 pr-8 text-[0.98rem] leading-[1.75] text-gabana-muted">
+                          {faq.a}
+                        </p>
+                      </motion.dd>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </dl>
         </div>
       </div>
     </section>

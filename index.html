@@ -1,81 +1,166 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/img/logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#001429" />
+    <link rel="icon" href="/img/logo.ico" sizes="any" />
+    <meta name="theme-color" content="#041520" />
+    <meta name="color-scheme" content="dark" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-    
-    <title>Gabana's House | Casa de Temporada em Caldas Novas</title>
-    <meta name="description" content="Hospede-se com conforto e privacidade no coração de Caldas Novas. Casa de temporada com piscina aquecida, área gourmet, wi-fi e ar condicionado. Reserve sem taxas!">
-    <meta name="keywords" content="Aluguel Caldas Novas, Casa Temporada Caldas Novas, Gabana's House, Hospedagem Família, Casa com Piscina Aquecida, Aluguel direto proprietário">
-    <meta name="author" content="Gabana's House">
-    <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter+Tight:wght@300;400;500;600&display=swap"
+    />
+    <link rel="preload" as="image" href="/img/piscina-noite.webp" fetchpriority="high" />
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gabanashousetemporada.vercel.app/">
-    <meta property="og:title" content="Gabana's House | Luxo e Lazer em Caldas Novas">
-    <meta property="og:description" content="Piscina aquecida, churrasqueira e muito aconchego. Viva momentos inesquecíveis. Veja fotos e garanta sua data!">
-    <meta property="og:image" content="https://gabanashousetemporada.vercel.app/img/Piscina1.png">
-    <meta property="og:site_name" content="Gabana's House">
-    <meta property="og:locale" content="pt_BR">
+    <title>Gabana's House | Casa de temporada em Caldas Novas</title>
+    <meta data-default
+      name="description"
+      content="Casa inteira em Caldas Novas para até 15 pessoas: 3 suítes com ar-condicionado, 4 banheiros, piscina climatizada, churrasqueira integrada à cozinha e garagem para 3 carros. Reserva direta com o anfitrião, sem taxa de plataforma."
+    />
+    <meta name="author" content="Gabana's House" />
+    <meta data-default name="robots" content="index, follow, max-image-preview:large" />
+    <link data-default rel="canonical" href="https://gabanashousetemporada.vercel.app/" />
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://gabanashousetemporada.vercel.app/">
-    <meta property="twitter:title" content="Gabana's House | Casa de Temporada em Caldas Novas">
-    <meta property="twitter:description" content="A melhor e mais bem localizada casa de temporada para sua família em Caldas Novas.">
-    <meta property="twitter:image" content="https://gabanashousetemporada.vercel.app/img/Piscina1.png">
+    <meta property="og:type" content="website" />
+    <meta data-default property="og:url" content="https://gabanashousetemporada.vercel.app/" />
+    <meta data-default property="og:title" content="Gabana's House | Casa de temporada em Caldas Novas" />
+    <meta data-default
+      property="og:description"
+      content="Três suítes, piscina climatizada e churrasqueira, a poucos passos dos clubes termais. Reserve direto com o anfitrião."
+    />
+    <meta data-default property="og:image" content="https://gabanashousetemporada.vercel.app/img/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Gabana's House" />
+    <meta property="og:locale" content="pt_BR" />
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17878593233"></script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta data-default name="twitter:title" content="Gabana's House | Casa de temporada em Caldas Novas" />
+    <meta data-default
+      name="twitter:description"
+      content="Três suítes, piscina climatizada e churrasqueira, a poucos passos dos clubes termais."
+    />
+    <meta data-default name="twitter:image" content="https://gabanashousetemporada.vercel.app/img/og-image.jpg" />
+
+    <!--
+      Consent Mode v2 — roda ANTES do gtag carregar.
+      Sem escolha salva, tudo que é rastreamento entra negado: o Google Ads
+      carrega em modo sem cookies até o visitante aceitar. É o que a LGPD pede.
+    -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      (function () {
+        var saved = null;
+        try {
+          saved = JSON.parse(localStorage.getItem('gh:prefs') || 'null');
+        } catch (e) {
+          saved = null;
+        }
+
+        var granted = saved && saved.version === 1 && saved.analytics === true;
+        var state = granted ? 'granted' : 'denied';
+
+        gtag('consent', 'default', {
+          ad_storage: state,
+          ad_user_data: state,
+          ad_personalization: state,
+          analytics_storage: state,
+          functionality_storage: 'granted',
+          security_storage: 'granted',
+          wait_for_update: 500
+        });
+
+        gtag('set', 'url_passthrough', true);
+        gtag('set', 'ads_data_redaction', !granted);
+      })();
+
       gtag('js', new Date());
       gtag('config', 'AW-17878593233');
     </script>
-    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17878593233"></script>
+
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "VacationRental",
-      "name": "Gabana's House",
-      "image": [
-        "https://gabanashousetemporada.vercel.app/img/Piscina1.png",
-        "https://gabanashousetemporada.vercel.app/img/fachada.png"
-      ],
-      "description": "Casa de temporada com piscina aquecida, churrasqueira e ar condicionado em Caldas Novas.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Rua 7 - Av. A, Qd 04 Lt 27 - Itaguai 1", 
-        "addressLocality": "Caldas Novas",
-        "addressRegion": "GO",
-        "postalCode": "75690-000",
-        "addressCountry": "BR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": -17.743056,
-        "longitude": -48.625278
-      },
-      "url": "https://gabanashousetemporada.vercel.app/",
-      "telephone": "+5564992415277",
-      "priceRange": "$$$",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "24"
-      },
-      "amenityFeature": [
-        { "@type": "LocationFeatureSpecification", "name": "Piscina Aquecida", "value": "True" },
-        { "@type": "LocationFeatureSpecification", "name": "Wi-Fi Fibra", "value": "True" },
-        { "@type": "LocationFeatureSpecification", "name": "Área Gourmet", "value": "True" },
-        { "@type": "LocationFeatureSpecification", "name": "Ar Condicionado", "value": "True" }
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "VacationRental",
+        "name": "Gabana's House",
+        "image": [
+          "https://gabanashousetemporada.vercel.app/img/piscina-noite.webp",
+          "https://gabanashousetemporada.vercel.app/img/churrasqueira.webp",
+          "https://gabanashousetemporada.vercel.app/img/fachada.webp"
+        ],
+        "description": "Casa de temporada inteira em Caldas Novas com 3 suítes, 4 banheiros, piscina climatizada, churrasqueira integrada à cozinha e garagem coberta para 3 veículos.",
+        "url": "https://gabanashousetemporada.vercel.app/",
+        "telephone": "+5564992415277",
+        "priceRange": "$$$",
+        "petsAllowed": true,
+        "numberOfRooms": 3,
+        "numberOfBathroomsTotal": 4,
+        "occupancy": { "@type": "QuantitativeValue", "maxValue": 15, "unitCode": "C62" },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua 7 - Av. A, Qd 04 Lt 27 - Itaguaí 1",
+          "addressLocality": "Caldas Novas",
+          "addressRegion": "GO",
+          "postalCode": "75690-000",
+          "addressCountry": "BR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -17.746938,
+          "longitude": -48.623688
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "24",
+          "bestRating": "5"
+        },
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Piscina climatizada", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Wi-Fi por fibra", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Churrasqueira integrada à cozinha", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Ar-condicionado", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Cozinha equipada", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Garagem coberta", "value": true }
+        ]
+      }
+    </script>
+
+    <!-- Autoria do site: liga a Optima Sistemas a este projeto para buscadores. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Gabana's House",
+        "url": "https://gabanashousetemporada.vercel.app/",
+        "inLanguage": "pt-BR",
+        "creator": {
+          "@type": "Organization",
+          "name": "Optima Sistemas",
+          "url": "https://optimasistemas.com/",
+          "description": "Sites de alta conversão e sistemas de gestão sob medida.",
+          "telephone": "+5564992106986",
+          "sameAs": [
+            "https://optimasistemas.com/",
+            "https://www.instagram.com/optima_sistemas"
+          ],
+          "areaServed": "BR",
+          "knowsAbout": [
+            "Desenvolvimento de sites",
+            "Landing pages",
+            "Sistemas de gestão",
+            "Automação de processos"
+          ]
+        }
+      }
     </script>
   </head>
   <body>
